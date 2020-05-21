@@ -7,6 +7,7 @@ Projeto de Engenharia de Software 3
 Entre na pasta front/ e rode:
 
 ```
+$ npm install
 $ npm start
 ```
 
@@ -15,5 +16,6 @@ $ npm start
 Entre na pasta back e rode:
 
 ```
+$ npm install
 $ node src/index.js
 ```
