@@ -17,3 +17,9 @@ Entre na pasta back e rode:
 ```
 $ node src/index.js
 ```
+
+#### Para hot reload do node
+
+```
+$ npm install -g nodemon
+```
