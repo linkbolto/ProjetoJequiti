@@ -6,12 +6,8 @@ cc.Class({
     
     },
 
-    start () {
-
-    },
 
     update (dt) {
-        this.node.angle -= this.speed * dt
-
+      this.node.angle -= this.speed * dt
     },
 });
