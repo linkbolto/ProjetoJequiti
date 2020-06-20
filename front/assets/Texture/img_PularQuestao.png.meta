@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.4",
+  "uuid": "4abe4005-aab6-4402-abb7-10368406e496",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 48,
+  "height": 49,
+  "platformSettings": {},
+  "subMetas": {
+    "img_PularQuestao": {
+      "ver": "1.0.4",
+      "uuid": "07a3c4be-8c29-4e54-9eab-a012b6a82c6c",
+      "rawTextureUuid": "4abe4005-aab6-4402-abb7-10368406e496",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 0,
+      "width": 44,
+      "height": 49,
+      "rawWidth": 48,
+      "rawHeight": 49,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
