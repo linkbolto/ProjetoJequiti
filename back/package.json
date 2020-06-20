@@ -4,6 +4,7 @@
   "main": "server.js",
   "dependencies": {
     "express": "^4.17.1",
+    "mongoose": "^5.9.19",
     "nodemon": "^2.0.4",
     "socket.io": "^2.3.0"
   },
