@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "background",
+    "_name": "background_game",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -105,7 +105,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "background<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 1
@@ -119,7 +119,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "de77bc8c-2f1f-4b89-ac03-8dd46201b5ba"
+      "__uuid__": "b94cc4cb-f367-40c0-8a94-5860a0f8e5bb"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -143,7 +143,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "e2e0crkOLxGrpMxpbC4iQg1",
+    "fileId": "49/nFVdk1IN5K0D0m/I7FO",
     "sync": false
   }
 ]
