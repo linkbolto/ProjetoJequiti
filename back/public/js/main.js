@@ -5,11 +5,11 @@ const signupForm = document.getElementById('signup');
 
 //Eventos que acontecem ao se conectar, de acordo com o código do server
 socket.on('connect',(data)=>{
-	//exibe no console do browser a mensagem que foi recebida pelo servidor
-	socket.on('message',(msg)=> {
-		console.log(msg)	
-	})
-	
+  //exibe no console do browser a mensagem que foi recebida pelo servidor
+  socket.on('message',(msg)=> {
+    console.log(msg)	
+  })
+
 })
 
 loginFunction();
