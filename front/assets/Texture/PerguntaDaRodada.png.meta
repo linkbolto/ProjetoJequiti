@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.4",
+  "uuid": "dffc7ed3-4baa-4242-b460-d85ae6b22385",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 366,
+  "height": 146,
+  "platformSettings": {},
+  "subMetas": {
+    "PerguntaDaRodada": {
+      "ver": "1.0.4",
+      "uuid": "7371b5fb-3c74-42db-890d-620ca39c30d6",
+      "rawTextureUuid": "dffc7ed3-4baa-4242-b460-d85ae6b22385",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 366,
+      "height": 146,
+      "rawWidth": 366,
+      "rawHeight": 146,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
