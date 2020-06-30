@@ -1,14 +1,11 @@
 import socketio from 'socket.io'
 import Lobby from './game/lobby.js'
 import {question1, question2} from './mocks/question.js'
-//SERVER
-
+import startGame from './game/game.js'
 
 const io = socketio(3500)
 
-const players = {}
-
-const state = {
+export const state = {
   currentQuestion: {}
 }
 
@@ -20,6 +17,10 @@ io.on('connection', socket => {
   socket.on('joinLobby', (user, resp) => {
     //if (Lobby.join(user)) {
     resp(true)
+
+    startGame()
+
+    return
 
     setTimeout(() => {
       state.currentQuestion = question1
