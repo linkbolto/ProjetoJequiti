@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.4",
+  "uuid": "6092e264-251f-4fdf-acdb-cef865dc1d65",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 271,
+  "height": 131,
+  "platformSettings": {},
+  "subMetas": {
+    "[Logo] Show do Vitao": {
+      "ver": "1.0.4",
+      "uuid": "86a83481-e6db-4e68-9413-0f02e825c60a",
+      "rawTextureUuid": "6092e264-251f-4fdf-acdb-cef865dc1d65",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0.5,
+      "trimX": 1,
+      "trimY": 0,
+      "width": 269,
+      "height": 130,
+      "rawWidth": 271,
+      "rawHeight": 131,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
