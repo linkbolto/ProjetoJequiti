@@ -7,7 +7,7 @@ export const state = {
 }
 
 export const connect = () => {
-  socket = io("192.168.0.11:3500");
+  socket = io("localhost:3500");
 
   socket.on("connect", () => {
     socket.emit("joinLobby", {name: 'lucas'}, joinLobbyResponse)
