@@ -2482,7 +2482,7 @@
         1,
         1,
         1,
-        0
+        1
       ]
     },
     "_eulerAngles": {
@@ -2674,23 +2674,23 @@
     "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
-      "r": 230,
-      "g": 230,
-      "b": 230,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_N$pressedColor": {
       "__type__": "cc.Color",
-      "r": 200,
-      "g": 200,
-      "b": 200,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "pressedColor": {
       "__type__": "cc.Color",
-      "r": 200,
-      "g": 200,
-      "b": 200,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_N$hoverColor": {
@@ -2709,9 +2709,9 @@
     },
     "_N$disabledColor": {
       "__type__": "cc.Color",
-      "r": 120,
-      "g": 120,
-      "b": 120,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 200
     },
     "_N$normalSprite": {
@@ -4749,18 +4749,30 @@
     "Question": {
       "__id__": 44
     },
-    "Answer1": {
-      "__id__": 51
+    "Answers": [
+      {
+        "__id__": 48
+      },
+      {
+        "__id__": 55
+      },
+      {
+        "__id__": 62
+      },
+      {
+        "__id__": 69
+      }
+    ],
+    "correctSprite": {
+      "__uuid__": "76c9bdb3-0522-4c95-b55d-a21c41e4e125"
     },
-    "Answer2": {
-      "__id__": 58
+    "chooseSprite": {
+      "__uuid__": "ef691ba1-17f3-4b71-b7d1-6769b7e291e9"
     },
-    "Answer3": {
-      "__id__": 65
+    "wrongSprite": {
+      "__uuid__": "ed21f073-edf5-4420-91a8-87248820ea7f"
     },
-    "Answer4": {
-      "__id__": 72
-    },
+    "clicked": false,
     "_id": "b271bJgsdKnKbo9mPdwjZ9"
   },
   {

@@ -3,7 +3,7 @@ import io from "socket.io-client";
 let socket = null
 
 export const state = {
-  player: {name: 'lucas'},
+  player: {},
   question: {},
   players: []
 }
@@ -12,8 +12,10 @@ export const connect = () => {
   socket = io("localhost:3500");
 
   socket.on("connect", () => {
-    socket.emit("joinLobby", state.player.name, joinLobbyResponse)
-    socket.emit('login', state.player.name)
+    //socket.emit("joinLobby", state.player.nome, joinLobbyResponse)
+    socket.emit('usepowerup', {nome: 'lucas', numero: '1'})
+
+    //socket.emit('login', {nome: 'Victor', senha: '1234'}, loginResponse)
   })
 
   socket.on("roundStart", gameState => {
@@ -26,8 +28,8 @@ export const connect = () => {
     const players = gameState.players
     const player = state.player
 
-    const myPlayer = players.find(p => p.name === player.name)
-    const otherPlayer = players.find(p => p.name !== player.name)
+    const myPlayer = players.find(p => p.nome === player.nome)
+    const otherPlayer = players.find(p => p.nome !== player.nome)
 
     if (myPlayer.coins >= otherPlayer.coins) 
       cc.director.loadScene('Ganhou')
@@ -45,7 +47,15 @@ export const chooseResponse = (param, func) => {
   })
 }
 
+export const signUp = params => {
+  socket.emit("signup", params)
+}
+
 //RESPOSTAS
 const joinLobbyResponse = (resp) => {
   if(resp) cc.director.loadScene("LookingForEnemy");
+}
+
+const loginResponse = resp => {
+  if(resp) state.player = resp
 }
