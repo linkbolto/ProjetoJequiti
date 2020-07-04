@@ -32,13 +32,14 @@ const setGame = () => {
     round: 0,
     players: [
       {name: 'lucas', coins: 0},
-      {name: 'jogador2', coins: 1000}
+      {name: 'jogador2', coins: 500}
     ]
   }
 }
 
 const endGame = () => {
   console.log("Ending Game...")
+  io.sockets.emit("gameEnd", state.game)
 }
 
 const setQuestion = async () => {

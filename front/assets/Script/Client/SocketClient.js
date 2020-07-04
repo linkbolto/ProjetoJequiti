@@ -21,6 +21,18 @@ export const connect = () => {
     state.players = gameState.players
     cc.director.loadScene("Game")
   })
+
+  socket.on('gameEnd', gameState => {
+    const players = gameState.players
+    const player = state.player
+
+    const myPlayer = players.find(p => p.name === player.name)
+    const otherPlayer = players.find(p => p.name !== player.name)
+
+    if (myPlayer.coins >= otherPlayer.coins) 
+      cc.director.loadScene('Ganhou')
+    else cc.director.loadScene('Perdeu')
+  })
 }
 
 //EVENTOS
