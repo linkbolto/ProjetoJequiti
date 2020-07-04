@@ -1,24 +1,6 @@
 import io from "../index.js"
 import { state } from "../index.js"
-import mongoose from 'mongoose'
-
-mongoose.connect("mongodb+srv://admin:admin@cluster0-c56tb.gcp.mongodb.net/Jequiti", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: true,
-    useCreateIndex: true
-  });
-
-const Perguntas = mongoose.model('Pergunta', {
-  id: Number,
-  pergunta: String,
-  resposta1: String,
-  resposta2: String,
-  resposta3: String,
-  resposta4: String,
-  respostacerta: Number,
-  level: Number
-}, 'Perguntas')
+import { Perguntas } from '../database/index.js'
 
 const sleep = async (time) => {
   await new Promise((r) => setTimeout(r, time))
@@ -31,8 +13,8 @@ const setGame = () => {
     question: {},
     round: 0,
     players: [
-      {name: 'lucas', coins: 0},
-      {name: 'jogador2', coins: 500}
+      {nome: 'Victor', coins: 0},
+      {nome: 'jogador2', coins: 500}
     ]
   }
 }
