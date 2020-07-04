@@ -3,27 +3,45 @@ import io from "socket.io-client";
 let socket = null
 
 export const state = {
-  question: {}
+  player: {name: 'lucas'},
+  question: {},
+  players: []
 }
 
 export const connect = () => {
-  socket = io("192.168.0.11:3500");
+  socket = io("localhost:3500");
 
   socket.on("connect", () => {
-    socket.emit("joinLobby", {name: 'lucas'}, joinLobbyResponse)
+    socket.emit("joinLobby", state.player.name, joinLobbyResponse)
+    socket.emit('login', state.player.name)
   })
 
-  socket.on("roundStart", respQuestion => {
-    state.question = respQuestion
+  socket.on("roundStart", gameState => {
+    state.question = gameState.question
+    state.players = gameState.players
     cc.director.loadScene("Game")
+  })
+
+  socket.on('gameEnd', gameState => {
+    const players = gameState.players
+    const player = state.player
+
+    const myPlayer = players.find(p => p.name === player.name)
+    const otherPlayer = players.find(p => p.name !== player.name)
+
+    if (myPlayer.coins >= otherPlayer.coins) 
+      cc.director.loadScene('Ganhou')
+    else cc.director.loadScene('Perdeu')
   })
 }
 
 //EVENTOS
-export const chooseResponse = param => {
+export const chooseResponse = (param, func) => {
   socket.emit("chooseResponse", param, correctAnswer => {
     if(param === correctAnswer) console.log("RESPOSTA CERTA")
     else console.log("RESPOSTA ERRADA")
+
+    func(param, correctAnswer)
   })
 }
 
@@ -31,9 +49,3 @@ export const chooseResponse = param => {
 const joinLobbyResponse = (resp) => {
   if(resp) cc.director.loadScene("LookingForEnemy");
 }
-
-/*
-      socket.on("bla", param => {
-          console.log(param)
-      })
-*/
