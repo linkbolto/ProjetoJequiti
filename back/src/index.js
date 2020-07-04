@@ -1,47 +1,52 @@
-import socketio from 'socket.io'
-import Lobby from './game/lobby.js'
-import {question1, question2} from './mocks/question.js'
-//SERVER
-
+import socketio from "socket.io"
+import startGame from "./game/game.js"
 
 const io = socketio(3500)
 
-const players = {}
-
-const state = {
-  currentQuestion: {}
+export const state = {
+  game: {},
 }
 
-io.on('connection', socket => {
-  console.log('client connectado')
+io.on("connection", (socket) => {
+  console.log("client connectado")
 
-//  socket.emit("bla", "testando eventos")
+  socket.on("login", (name) => {
+    socket.playerName = name
+  })
 
-  socket.on('joinLobby', (user, resp) => {
-    //if (Lobby.join(user)) {
+
+  socket.on("joinLobby", (user, resp) => {
     resp(true)
 
-    setTimeout(() => {
-      state.currentQuestion = question1
-      socket.emit('roundStart', question1)
-    }, 2000)
+    startGame()
 
-    setTimeout(() => {
-      state.currentQuestion = question2
-      socket.emit('roundStart', question2)
-    }, 10000)
+    socket.on("chooseResponse", (answer, resp) => {
+      const player = state.game.players.find(
+        (p) => p.name === socket.playerName
+      )
 
-    socket.on("chooseResponse", (param, resp) => {
-      resp(state.currentQuestion.respostacerta)
+      if (player.answered) return
+
+      player.answered = true
+
+      const correctAnswer = state.game.question.respostacerta
+      const isCorrect = correctAnswer === answer
+
+      resp(correctAnswer)
+
+      if (isCorrect) {
+        player.coins += 500
+      } else {
+        player.coins -= 2000
+      }
     })
-/*
+    /*
       if(Lobby.isFull()) {
         io.sockets.emit("message", 'comecou!!!')
       }
     }
 */
   })
-
-});
+})
 
 export default io
