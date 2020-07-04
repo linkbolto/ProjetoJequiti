@@ -103,6 +103,9 @@
       },
       {
         "__id__": 87
+      },
+      {
+        "__id__": 88
       }
     ],
     "_prefab": null,
@@ -192,7 +195,7 @@
       "array": [
         0,
         0,
-        496.23255636848336,
+        500.56268338740557,
         0,
         0,
         0,
@@ -4167,5 +4170,17 @@
       "__id__": 65
     },
     "_id": "b271bJgsdKnKbo9mPdwjZ9"
+  },
+  {
+    "__type__": "7f699wH4NtH949iZ1ifuhxA",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "player1": null,
+    "player2": null,
+    "_id": "51H+LabV9CgLvEFX2/b6CB"
   }
 ]

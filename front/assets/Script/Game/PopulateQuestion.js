@@ -34,6 +34,14 @@ cc.Class({
     this.Answer2.node.on(cc.Node.EventType.TOUCH_START, () => {
       chooseResponse(2)
     }, this)
+
+    this.Answer3.node.on(cc.Node.EventType.TOUCH_START, () => {
+      chooseResponse(3)
+    }, this)
+
+    this.Answer4.node.on(cc.Node.EventType.TOUCH_START, () => {
+      chooseResponse(4)
+    }, this)
   }
 
   // update (dt) {},

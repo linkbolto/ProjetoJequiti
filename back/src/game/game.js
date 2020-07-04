@@ -1,6 +1,5 @@
 import io from "../index.js"
 import { state } from "../index.js"
-import { question1, question2 } from "../mocks/question.js"
 import mongoose from 'mongoose'
 
 mongoose.connect("mongodb+srv://admin:admin@cluster0-c56tb.gcp.mongodb.net/Jequiti", {
@@ -27,11 +26,14 @@ const sleep = async (time) => {
 
 const ROUNDS = 5
 
-let GameState = {}
-
 const setGame = () => {
-  GameState = {
+  state.game = {
+    question: {},
     round: 0,
+    players: [
+      {name: 'lucas', coins: 0},
+      {name: 'jogador2', coins: 1000}
+    ]
   }
 }
 
@@ -42,7 +44,7 @@ const endGame = () => {
 const setQuestion = async () => {
   console.log("Setting question...")
 
-  state.currentQuestion = await Perguntas.findOne({
+  state.game.question = await Perguntas.findOne({
     id: Math.round(Math.random() * 100)
   }).exec()
 }
@@ -54,11 +56,11 @@ const endRound = async () => {
 const startRound = async () => {
   console.log("Setting question...")
   await setQuestion()
-  GameState.round += 1
+  state.game.round += 1
 
-  console.log("Starting Round:", GameState.round)
+  console.log("Starting Round:", state.game.round)
 
-  io.sockets.emit("roundStart", state.currentQuestion)
+  io.sockets.emit("roundStart", state.game)
 
   await sleep(5000)
 }
@@ -69,7 +71,7 @@ const startGame = async () => {
 
   await sleep(2000)
 
-  while (GameState.round < ROUNDS) {
+  while (state.game.round < ROUNDS) {
     await startRound()
     endRound()
   }

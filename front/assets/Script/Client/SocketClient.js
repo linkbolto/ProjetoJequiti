@@ -3,18 +3,22 @@ import io from "socket.io-client";
 let socket = null
 
 export const state = {
-  question: {}
+  player: {name: 'lucas'},
+  question: {},
+  players: []
 }
 
 export const connect = () => {
   socket = io("localhost:3500");
 
   socket.on("connect", () => {
-    socket.emit("joinLobby", {name: 'lucas'}, joinLobbyResponse)
+    socket.emit("joinLobby", state.player.name, joinLobbyResponse)
+    socket.emit('login', state.player.name)
   })
 
-  socket.on("roundStart", respQuestion => {
-    state.question = respQuestion
+  socket.on("roundStart", gameState => {
+    state.question = gameState.question
+    state.players = gameState.players
     cc.director.loadScene("Game")
   })
 }
