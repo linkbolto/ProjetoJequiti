@@ -5,44 +5,71 @@ cc.Class({
 
   properties: {
     Question: cc.Label,
-    Answer1: cc.Label,
-    Answer2: cc.Label,
-    Answer3: cc.Label,
-    Answer4: cc.Label,
+    Answers: [cc.Node],
+    correctSprite: cc.SpriteFrame,
+    chooseSprite: cc.SpriteFrame,
+    wrongSprite: cc.SpriteFrame,
+    clicked: false,
   },
 
   // LIFE-CYCLE CALLBACKS:
 
-  // onLoad () {},
+  onLoad() {
+    this.labels = this.Answers.map((a) => {
+      return a.getComponentInChildren(cc.Label);
+    });
+  },
 
   start() {
-    this.clickHandler()
-    const question = state.question
+    this.clickHandler();
+    const question = state.question;
 
-    this.Question.string = question.pergunta
-    this.Answer1.string = question.resposta1,
-    this.Answer2.string = question.resposta2,
-    this.Answer3.string = question.resposta3,
-    this.Answer4.string = question.resposta4
+    this.Question.string = question.pergunta;
+
+    this.labels[0].string = question.resposta1;
+    this.labels[1].string = question.resposta2;
+    this.labels[2].string = question.resposta3;
+    this.labels[3].string = question.resposta4;
   },
 
   clickHandler() {
-    this.Answer1.node.on(cc.Node.EventType.TOUCH_START, () => {
-      chooseResponse(1)
-    }, this);
+    this.Answers.forEach((answer, index) => {
+      answer.on(
+        cc.Node.EventType.TOUCH_END,
+        () => {
+          this.processClick(answer, index);
+        },
+        this
+      );
+    });
+  },
 
-    this.Answer2.node.on(cc.Node.EventType.TOUCH_START, () => {
-      chooseResponse(2)
-    }, this)
+  processClick(answer, index) {
+    if (this.clicked) return;
+    this.clicked = true;
 
-    this.Answer3.node.on(cc.Node.EventType.TOUCH_START, () => {
-      chooseResponse(3)
-    }, this)
+    chooseResponse(index + 1, this.processAnswer.bind(this));
+    this.changeSprite(answer);
+    this.disableClick();
+  },
 
-    this.Answer4.node.on(cc.Node.EventType.TOUCH_START, () => {
-      chooseResponse(4)
-    }, this)
-  }
+  changeSprite(node) {
+    node.getComponentInChildren(cc.Sprite).spriteFrame = this.chooseSprite;
+  },
 
-  // update (dt) {},
+  disableClick() {
+    this.Answers.forEach((answer) => {
+      answer.getComponent(cc.Button).interactable = false;
+    });
+  },
+
+  processAnswer(chosen, correct) {
+    this.Answers[chosen - 1].getComponentInChildren(
+      cc.Sprite
+    ).spriteFrame = this.wrongSprite
+
+    this.Answers[correct - 1].getComponentInChildren(
+      cc.Sprite
+    ).spriteFrame = this.correctSprite;
+  },
 });

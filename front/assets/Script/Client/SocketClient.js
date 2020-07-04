@@ -24,10 +24,12 @@ export const connect = () => {
 }
 
 //EVENTOS
-export const chooseResponse = param => {
+export const chooseResponse = (param, func) => {
   socket.emit("chooseResponse", param, correctAnswer => {
     if(param === correctAnswer) console.log("RESPOSTA CERTA")
     else console.log("RESPOSTA ERRADA")
+
+    func(param, correctAnswer)
   })
 }
 
@@ -35,9 +37,3 @@ export const chooseResponse = param => {
 const joinLobbyResponse = (resp) => {
   if(resp) cc.director.loadScene("LookingForEnemy");
 }
-
-/*
-      socket.on("bla", param => {
-          console.log(param)
-      })
-*/

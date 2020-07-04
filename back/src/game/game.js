@@ -51,6 +51,7 @@ const setQuestion = async () => {
 
 const endRound = async () => {
   console.log("Endind Round...")
+  state.game.players.forEach(p => p.answered = false)
 }
 
 const startRound = async () => {
