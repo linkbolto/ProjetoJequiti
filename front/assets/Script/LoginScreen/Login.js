@@ -29,8 +29,8 @@ cc.Class({
         this.labelMessage.string = ''
 
         const params = {
-            nome: this.inputUsername.string,
-            senha: this.inputPassword.string
+            name: this.inputUsername.string,
+            password: this.inputPassword.string
         }
 
         login(params, this.handleResponse.bind(this))

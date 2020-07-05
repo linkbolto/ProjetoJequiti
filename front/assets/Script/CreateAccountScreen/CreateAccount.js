@@ -43,7 +43,7 @@ cc.Class({
     handleResponse(result, message) {
         if(!result) return this.labelMessage.string = message
 
-        this.usernameLabel.string = message.nome
+        this.usernameLabel.string = message.name
         this.successModal.active = true
     }
 });

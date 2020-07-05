@@ -2183,8 +2183,8 @@
       }
     ],
     "_useOriginalSize": true,
-    "_string": "senha",
-    "_N$string": "senha",
+    "_string": "password",
+    "_N$string": "password",
     "_fontSize": 20,
     "_lineHeight": 25,
     "_enableWrapText": false,
@@ -2785,8 +2785,8 @@
       }
     ],
     "_useOriginalSize": true,
-    "_string": "confirme a senha",
-    "_N$string": "confirme a senha",
+    "_string": "confirme a password",
+    "_N$string": "confirme a password",
     "_fontSize": 20,
     "_lineHeight": 25,
     "_enableWrapText": false,

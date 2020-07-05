@@ -4783,13 +4783,13 @@
       "__id__": 2
     },
     "_enabled": true,
-    "nomeP1": {
+    "nameP1": {
       "__id__": 25
     },
     "pontosP1": {
       "__id__": 30
     },
-    "nomeP2": {
+    "nameP2": {
       "__id__": 35
     },
     "pontosP2": {

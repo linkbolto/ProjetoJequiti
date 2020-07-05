@@ -46,7 +46,7 @@ mongoose.connection.on('disconnected', function () {
 
 //Schema de usuário
 let usuario = new Schema({
-    nome: {type: String, required: true, max: 100},
+    name: {type: String, required: true, max: 100},
     password: {type: String, required: true},
 });
 
@@ -69,12 +69,12 @@ io.on('connection', (socket) => {
 	socket.on('login', (loginData) =>{
 		console.log(loginData)
 		//Verifica se o login é válido no banco de dados
-		Contatos.findOne({nome: loginData.userLogin, password: loginData.passwordLogin}, function(err,obj){
+		Contatos.findOne({name: loginData.userLogin, password: loginData.passwordLogin}, function(err,obj){
 			if (obj){
 				io.emit('message', loginData.userLogin + ' entrou na sala');	
 			}
 			else{
-				socket.emit('message', 'Usuário ou senha inválidos');
+				socket.emit('message', 'Usuário ou password inválidos');
 			}
 		})
 	})
@@ -83,7 +83,7 @@ io.on('connection', (socket) => {
 	//verifica se o usuário já existe, e se não, coloca no banco
 	socket.on('signup', (signupData) =>{
 		if (signupData.passwordSignup === signupData.confirmSignup){
-				Contatos.findOne({nome: signupData.userSignup}, function(err,obj) { 
+				Contatos.findOne({name: signupData.userSignup}, function(err,obj) { 
 				//emite mensagem se o usuário já existe
 				if(obj){
 					socket.emit("message", "Usuário já cadastrado");
@@ -91,7 +91,7 @@ io.on('connection', (socket) => {
 				//se o usuário não existe, realiza o cadastro
 				else{
 					var item = {  
-					    nome: signupData.userSignup, 
+					    name: signupData.userSignup, 
 					    password: signupData.passwordSignup
 					  };  
 					  var data = new Contatos(item);  
@@ -101,7 +101,7 @@ io.on('connection', (socket) => {
 			});
 		}
 		else{
-			socket.emit('message','Senhas não coincidem');
+			socket.emit('message','passwords não coincidem');
 		}
 	})
 });

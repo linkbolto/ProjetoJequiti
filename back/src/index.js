@@ -11,12 +11,12 @@ export const state = {
 io.on("connection", (socket) => {
   console.log("client connectado")
 
-	socket.on('login', ({nome, senha}, callback) =>{
-    console.log(nome, senha)
+	socket.on('login', ({name, password}, callback) =>{
+    console.log(name, password)
 		//Verifica se o login é válido no banco de dados
-		Usuarios.findOne({nome, senha}, function(err,obj){
+		Usuarios.findOne({name, password}, function(err,obj){
 			if (obj){
-        socket.playerName = obj.nome
+        socket.playerName = obj.name
         callback(true, obj)
         console.log('Login sucesso')
 			}
@@ -30,15 +30,15 @@ io.on("connection", (socket) => {
 	socket.on('signup', (signupData, func) =>{
     console.log(signupData)
 		if (signupData.passwordSignup === signupData.confirmSignup){
-				Usuarios.findOne({nome: signupData.userSignup}, function(err,obj) { 
+				Usuarios.findOne({name: signupData.userSignup}, function(err,obj) { 
 				//emite mensagem se o usuário já existe
 				if(obj){
-					func(false, "Nome de usuário já cadastrado");
+					func(false, "name de usuário já cadastrado");
 				}
 				//se o usuário não existe, realiza o cadastro
 				else{
 					var item = {  
-					    nome: signupData.userSignup, 
+					    name: signupData.userSignup, 
               password: signupData.passwordSignup,
               coins: 1000,
               powerup1: 10,
@@ -53,25 +53,66 @@ io.on("connection", (socket) => {
 			});
 		}
 		else{
-			func(false,'Senhas não coincidem');
+			func(false,'passwords não coincidem');
 		}
   })
 
 
-// função para consumir um power up de acordo com o nome do usuário e o número do power up
-socket.on('usepowerup', ({nome, numero}) => {
+// função para consumir um power up de acordo com o name do usuário e o número do power up
+socket.on('usePowerup', ({name, numero}) => {
   console.log('Received powerup event')
-  Usuarios.findOne({nome}, function(err,obj) {
+  Usuarios.findOne({name}, function(err,obj) {
     console.log(obj) 
       if (obj && obj[`powerup${numero}`]) {
           const count = obj[`powerup${numero}`];
           console.log(count)
-          Usuarios.updateOne({nome}, { [`powerup${numero}`] : count - 1 }, () => {})
+          Usuarios.updateOne({name}, { [`powerup${numero}`] : count - 1 }, () => {})
       } else {
-          console.log('Usuário ' + nome + ' não encontrado')
+          console.log('Usuário ' + name + ' não encontrado')
       }
   });
 });
+
+	socket.on('addCoins', ({ name, quantity }) => {
+		console.log('adding coins');
+		if (quantity && quantity > 0) {
+			Usuarios.findOne({ name }, function (err, obj) {
+				if (obj) {
+					Usuarios.updateOne({ name }, { coins: obj.coins + quantity }, () => { })
+				} else {
+					console.error('Usuário ' + name + ' não encontrado')
+				}
+			});
+		} else {
+			console.error('A quantidade de moedas é inválida')
+		}
+	})
+
+	socket.on('buyPowerUp', ({ name, powerUp, price }) => {
+		if (price && price > 0) {
+			Usuarios.findOne({ name }, function (err, obj) {
+				if (obj) {
+					const coins = obj.coins;
+					if (price > coins) {
+						console.log('message', 'Usuário não possui moedas suficientes')
+					} else {
+						const powerUpCount = obj[`powerup${powerUp}`];
+						if (powerUpCount) {
+							Usuarios.updateOne({ name }, {
+                 coins: coins - price, [`powerup${powerUp}`]: powerUpCount + 1 
+                }, () => { })
+						} else {
+							console.error('Número de power up ' + powerUp + " inválido")
+						}
+					}
+				} else {
+					console.error('Usuário ' + name + ' não encontrado')
+				}
+			});
+		} else {
+			console.error('Preço do power up inválido')
+		}
+	})
 
 
   socket.on("joinLobby", (user, resp) => {
@@ -81,7 +122,7 @@ socket.on('usepowerup', ({nome, numero}) => {
 
     socket.on("chooseResponse", async (answer, resp) => {
       const player = state.game.players.find(
-        (p) => p.nome === socket.playerName
+        (p) => p.name === socket.playerName
       )
 
       if (player.answered) return

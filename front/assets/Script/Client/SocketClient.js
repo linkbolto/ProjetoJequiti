@@ -12,10 +12,12 @@ export const connect = () => {
   socket = io("localhost:3500");
 
   socket.on("connect", () => {
-    //socket.emit("joinLobby", state.player.nome, joinLobbyResponse)
-    //socket.emit('usepowerup', {nome: 'lucas', numero: '1'})
+   // socket.emit("addCoins", {name: "1", quantity: 1})
+   // socket.emit("buyPowerUp", {name: "1", powerUp: 2, price: 10000})
+    //socket.emit("joinLobby", state.player.name, joinLobbyResponse)
+    //socket.emit('usePowerup', {name: 'lucas', numero: '1'})
 
-    //socket.emit('login', {nome: 'Victor', senha: '1234'}, loginResponse)
+    //socket.emit('login', {name: 'Victor', password: '1234'}, loginResponse)
   })
 
   socket.on("roundStart", gameState => {
@@ -28,8 +30,8 @@ export const connect = () => {
     const players = gameState.players
     const player = state.player
 
-    const myPlayer = players.find(p => p.nome === player.nome)
-    const otherPlayer = players.find(p => p.nome !== player.nome)
+    const myPlayer = players.find(p => p.name === player.name)
+    const otherPlayer = players.find(p => p.name !== player.name)
 
     if (myPlayer.coins >= otherPlayer.coins) 
       cc.director.loadScene('Ganhou')

@@ -31,7 +31,7 @@ export const Perguntas = mongoose.model('Pergunta', {
 }, 'Perguntas')
 
 export const Usuarios = mongoose.model('usuario', {
-    nome: String,
+    name: String,
     password: String,
     coins: Number,
     powerup1: Number,
