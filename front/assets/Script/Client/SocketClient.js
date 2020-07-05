@@ -13,7 +13,7 @@ export const connect = () => {
 
   socket.on("connect", () => {
     //socket.emit("joinLobby", state.player.nome, joinLobbyResponse)
-    socket.emit('usepowerup', {nome: 'lucas', numero: '1'})
+    //socket.emit('usepowerup', {nome: 'lucas', numero: '1'})
 
     //socket.emit('login', {nome: 'Victor', senha: '1234'}, loginResponse)
   })
@@ -47,9 +47,13 @@ export const chooseResponse = (param, func) => {
   })
 }
 
-export const signUp = params => {
-  socket.emit("signup", params)
+export const signUp = (params, func) => {
+  socket.emit("signup", params, func)
 }
+
+export const login = (params, func) => {
+  socket.emit("login", params, func)
+} 
 
 //RESPOSTAS
 const joinLobbyResponse = (resp) => {

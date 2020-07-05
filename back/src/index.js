@@ -12,29 +12,28 @@ io.on("connection", (socket) => {
   console.log("client connectado")
 
 	socket.on('login', ({nome, senha}, callback) =>{
+    console.log(nome, senha)
 		//Verifica se o login é válido no banco de dados
 		Usuarios.findOne({nome, senha}, function(err,obj){
 			if (obj){
-        io.emit('loginMessage', nome + ' entrou na sala');
         socket.playerName = obj.nome
-        callback(obj)
+        callback(true, obj)
         console.log('Login sucesso')
 			}
 			else{
-        socket.emit('message', 'Usuário ou senha inválidos');
-        callback(null)
+        callback(false, 'Usuário ou senha inválidos');
         console.log('Login erro')
 			}
 		})
   })
   
-	socket.on('signup', (signupData) =>{
+	socket.on('signup', (signupData, func) =>{
     console.log(signupData)
 		if (signupData.passwordSignup === signupData.confirmSignup){
 				Usuarios.findOne({nome: signupData.userSignup}, function(err,obj) { 
 				//emite mensagem se o usuário já existe
 				if(obj){
-					socket.emit("message", "Usuário já cadastrado");
+					func(false, "Nome de usuário já cadastrado");
 				}
 				//se o usuário não existe, realiza o cadastro
 				else{
@@ -49,12 +48,12 @@ io.on("connection", (socket) => {
 					  };  
 					  var data = new Usuarios(item);  
 					  data.save();
-					socket.emit("message", signupData.userSignup + " se cadastrou!");
+					func(true, data);
 				}
 			});
 		}
 		else{
-			socket.emit('message','Senhas não coincidem');
+			func(false,'Senhas não coincidem');
 		}
   })
 

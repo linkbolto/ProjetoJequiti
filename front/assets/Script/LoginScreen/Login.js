@@ -1,3 +1,5 @@
+import { connect, login, state } from "../Client/SocketClient";
+
 cc.Class({
     extends: cc.Component,
 
@@ -15,8 +17,31 @@ cc.Class({
         }, this);
 
         this.buttonLogin.node.on('click', ()=>{
-            cc.director.loadScene("HomeScreen");
+            this.sendLogin()
         }, this);
-           
     },
+
+    start () {
+        connect()
+    },
+
+    sendLogin () {
+        this.labelMessage.string = ''
+
+        const params = {
+            nome: this.inputUsername.string,
+            senha: this.inputPassword.string
+        }
+
+        login(params, this.handleResponse.bind(this))
+    },
+
+    handleResponse (result, message) {
+        console.log(result, message)
+
+        if(!result) return this.labelMessage.string = message
+
+        state.player = message
+        cc.director.loadScene("HomeScreen");
+    }
 });

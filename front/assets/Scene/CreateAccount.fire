@@ -201,7 +201,7 @@
       "array": [
         0,
         0,
-        525.6774200971543,
+        500.56268338740557,
         0,
         0,
         0,
@@ -2970,7 +2970,7 @@
       }
     ],
     "_prefab": null,
-    "_opacity": 0,
+    "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
@@ -2980,7 +2980,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 226.82,
+      "width": 0,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -2993,7 +2993,7 @@
       "ctor": "Float64Array",
       "array": [
         -1.901,
-        -50.062,
+        -40,
         0,
         0,
         0,
@@ -3031,8 +3031,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "Mensagem para o usuário",
-    "_N$string": "Mensagem para o usuário",
+    "_string": "",
+    "_N$string": "",
     "_fontSize": 19,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -3481,7 +3481,7 @@
         "__id__": 89
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 99
@@ -4667,6 +4667,9 @@
     },
     "successModal": {
       "__id__": 75
+    },
+    "usernameLabel": {
+      "__id__": 88
     },
     "_id": "51Xqit7n9PUK6eWO0Speb8"
   }
