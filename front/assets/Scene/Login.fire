@@ -195,7 +195,7 @@
       "array": [
         0,
         0,
-        525.9542867158852,
+        500.56268338740557,
         0,
         0,
         0,
@@ -2274,8 +2274,8 @@
       }
     ],
     "_useOriginalSize": true,
-    "_string": "senha",
-    "_N$string": "senha",
+    "_string": "password",
+    "_N$string": "password",
     "_fontSize": 20,
     "_lineHeight": 25,
     "_enableWrapText": false,
@@ -2505,7 +2505,7 @@
       }
     ],
     "_prefab": null,
-    "_opacity": 0,
+    "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
@@ -2515,7 +2515,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 250.86,
+      "width": 0,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -2566,8 +2566,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "Usuário ou senha incorretos!",
-    "_N$string": "Usuário ou senha incorretos!",
+    "_string": "",
+    "_N$string": "",
     "_fontSize": 19,
     "_lineHeight": 40,
     "_enableWrapText": true,

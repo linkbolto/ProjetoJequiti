@@ -3,7 +3,7 @@ import io from "socket.io-client";
 let socket = null
 
 export const state = {
-  player: {name: 'lucas'},
+  player: {},
   question: {},
   players: []
 }
@@ -12,8 +12,12 @@ export const connect = () => {
   socket = io("localhost:3500");
 
   socket.on("connect", () => {
-    socket.emit("joinLobby", state.player.name, joinLobbyResponse)
-    socket.emit('login', state.player.name)
+   // socket.emit("addCoins", {name: "1", quantity: 1})
+   // socket.emit("buyPowerUp", {name: "1", powerUp: 2, price: 10000})
+    //socket.emit("joinLobby", state.player.name, joinLobbyResponse)
+    //socket.emit('usePowerup', {name: 'lucas', numero: '1'})
+
+    //socket.emit('login', {name: 'Victor', password: '1234'}, loginResponse)
   })
 
   socket.on("roundStart", gameState => {
@@ -45,7 +49,19 @@ export const chooseResponse = (param, func) => {
   })
 }
 
+export const signUp = (params, func) => {
+  socket.emit("signup", params, func)
+}
+
+export const login = (params, func) => {
+  socket.emit("login", params, func)
+} 
+
 //RESPOSTAS
 const joinLobbyResponse = (resp) => {
   if(resp) cc.director.loadScene("LookingForEnemy");
+}
+
+const loginResponse = resp => {
+  if(resp) state.player = resp
 }

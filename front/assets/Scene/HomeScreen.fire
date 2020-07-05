@@ -2275,7 +2275,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "lbl_NomePUp",
+    "_name": "lbl_namePUp",
     "_objFlags": 0,
     "_parent": {
       "__id__": 44
@@ -2945,7 +2945,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "lbl_NomePUp",
+    "_name": "lbl_namePUp",
     "_objFlags": 0,
     "_parent": {
       "__id__": 57
@@ -3205,7 +3205,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "lbl_NomePUp",
+    "_name": "lbl_namePUp",
     "_objFlags": 0,
     "_parent": {
       "__id__": 71
