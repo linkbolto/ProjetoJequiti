@@ -195,7 +195,7 @@
       "array": [
         0,
         0,
-        500.56268338740557,
+        496.23255636848336,
         0,
         0,
         0,
@@ -1408,7 +1408,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 62.49,
+      "width": 56.62,
       "height": 23.94
     },
     "_anchorPoint": {
@@ -1465,7 +1465,7 @@
     "_lineHeight": 19,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "9aaf5d90-cedd-40af-98fd-6e9ad133e390"
+      "__uuid__": "858e8937-ba13-46c3-931a-4cbc620bd5bf"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -1921,7 +1921,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 62.49,
+      "width": 56.62,
       "height": 23.94
     },
     "_anchorPoint": {
@@ -1978,7 +1978,7 @@
     "_lineHeight": 19,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "9aaf5d90-cedd-40af-98fd-6e9ad133e390"
+      "__uuid__": "858e8937-ba13-46c3-931a-4cbc620bd5bf"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -2164,8 +2164,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 319,
-      "height": 83
+      "width": 336,
+      "height": 77.9
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2176,8 +2176,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -1,
-        67,
+        0.5,
+        67.4,
         0,
         0,
         0,
@@ -2217,11 +2217,11 @@
     "_useOriginalSize": false,
     "_string": "Quantos anos há em dois séculos e meio",
     "_N$string": "Quantos anos há em dois séculos e meio",
-    "_fontSize": 20,
+    "_fontSize": 19,
     "_lineHeight": 20,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "9aaf5d90-cedd-40af-98fd-6e9ad133e390"
+      "__uuid__": "858e8937-ba13-46c3-931a-4cbc620bd5bf"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -2260,7 +2260,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 72.18,
+      "width": 66.01,
       "height": 22.68
     },
     "_anchorPoint": {
@@ -2317,7 +2317,7 @@
     "_lineHeight": 18,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "9aaf5d90-cedd-40af-98fd-6e9ad133e390"
+      "__uuid__": "858e8937-ba13-46c3-931a-4cbc620bd5bf"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -2576,11 +2576,11 @@
     "_useOriginalSize": false,
     "_string": "",
     "_N$string": "",
-    "_fontSize": 20,
+    "_fontSize": 19,
     "_lineHeight": 19,
     "_enableWrapText": false,
     "_N$file": {
-      "__uuid__": "9aaf5d90-cedd-40af-98fd-6e9ad133e390"
+      "__uuid__": "eecb8107-a1f8-4624-8299-6db0202a9991"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -2950,11 +2950,11 @@
     "_useOriginalSize": false,
     "_string": "",
     "_N$string": "",
-    "_fontSize": 20,
+    "_fontSize": 19,
     "_lineHeight": 19,
     "_enableWrapText": false,
     "_N$file": {
-      "__uuid__": "9aaf5d90-cedd-40af-98fd-6e9ad133e390"
+      "__uuid__": "eecb8107-a1f8-4624-8299-6db0202a9991"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -3324,11 +3324,11 @@
     "_useOriginalSize": false,
     "_string": "",
     "_N$string": "",
-    "_fontSize": 20,
+    "_fontSize": 19,
     "_lineHeight": 19,
     "_enableWrapText": false,
     "_N$file": {
-      "__uuid__": "9aaf5d90-cedd-40af-98fd-6e9ad133e390"
+      "__uuid__": "eecb8107-a1f8-4624-8299-6db0202a9991"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -3698,11 +3698,11 @@
     "_useOriginalSize": false,
     "_string": "",
     "_N$string": "",
-    "_fontSize": 20,
+    "_fontSize": 19,
     "_lineHeight": 19,
     "_enableWrapText": false,
     "_N$file": {
-      "__uuid__": "9aaf5d90-cedd-40af-98fd-6e9ad133e390"
+      "__uuid__": "eecb8107-a1f8-4624-8299-6db0202a9991"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,

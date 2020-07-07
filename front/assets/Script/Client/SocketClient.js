@@ -23,6 +23,8 @@ export const connect = () => {
   socket.on("roundStart", gameState => {
     state.question = gameState.question
     state.players = gameState.players
+
+    console.log(state.player, state.players)
     cc.director.loadScene("Game")
   })
 
@@ -55,7 +57,11 @@ export const signUp = (params, func) => {
 
 export const login = (params, func) => {
   socket.emit("login", params, func)
-} 
+}
+
+export const joinLobby = () => {
+  socket.emit("joinLobby", '', joinLobbyResponse)
+}
 
 //RESPOSTAS
 const joinLobbyResponse = (resp) => {
