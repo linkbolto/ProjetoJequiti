@@ -1,4 +1,4 @@
-import {connect} from './SocketClient';
+import {joinLobby} from './SocketClient';
 
 cc.Class({
   extends: cc.Component,
@@ -6,6 +6,6 @@ cc.Class({
   properties: {},
 
   onClick() {
-    connect()
+    joinLobby()
   },
 });
