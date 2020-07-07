@@ -59,7 +59,7 @@ cc.Class({
 
 	cc.tween(this.haha)
 		.to(1, { position: cc.v2(68, 11.5) })
-		.to(3, { position: cc.v2(68, 11.5) })
+		.to(1.5, { position: cc.v2(68, 11.5) })
 		.to(1, { position: cc.v2(68, 500) })
 	.start()
 	
@@ -81,7 +81,7 @@ cc.Class({
 
 	cc.tween(this.zzz)
 		.to(1, { position: cc.v2(68, 11.5) })
-		.to(3, { position: cc.v2(68, 11.5) })
+		.to(1.5, { position: cc.v2(68, 11.5) })
 		.to(1, { position: cc.v2(68, 500) })
 	.start()
 	
@@ -103,7 +103,7 @@ cc.Class({
 
 	cc.tween(this.alert)
 		.to(1, { position: cc.v2(68, 11.5) })
-		.to(3, { position: cc.v2(68, 11.5) })
+		.to(1.5, { position: cc.v2(68, 11.5) })
 		.to(1, { position: cc.v2(68, 500) })
 	.start()
 	
@@ -125,7 +125,7 @@ cc.Class({
 
 	cc.tween(this.dots)
 		.to(1, { position: cc.v2(68, 11.5) })
-		.to(3, { position: cc.v2(68, 11.5) })
+		.to(1.5, { position: cc.v2(68, 11.5) })
 		.to(1, { position: cc.v2(68, 500) })
 	.start()
 	
