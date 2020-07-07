@@ -13,7 +13,7 @@ const setGame = () => {
     question: {},
     round: 0,
     players: [
-      {name: 'Victor', coins: 0},
+      {name: 'lucas', coins: 0},
       {name: 'jogador2', coins: 500}
     ]
   }
