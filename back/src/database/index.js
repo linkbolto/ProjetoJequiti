@@ -38,3 +38,10 @@ export const Usuarios = mongoose.model('usuario', {
     powerup2: Number,
     powerup3: Number
 }, 'Users')
+
+export const PowerUps = mongoose.model('PowerUp', {
+  id: Number,
+  power: String,
+  description: String,
+  valor: Number
+}, 'Powerup')
