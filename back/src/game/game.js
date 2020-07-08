@@ -27,9 +27,12 @@ const endGame = () => {
 const setQuestion = async () => {
   console.log("Setting question...")
 
-  state.game.question = await Perguntas.findOne({
-    id: Math.round(Math.random() * 100)
-  }).exec()
+  const randomQuestions = await Perguntas.aggregate([
+    { $match: { level: state.game.round } },
+    { $sample: { size: 1 } }
+  ]).exec()
+
+  state.game.question = randomQuestions[0]
 }
 
 const endRound = async () => {
@@ -39,8 +42,9 @@ const endRound = async () => {
 
 const startRound = async () => {
   console.log("Setting question...")
-  await setQuestion()
+  
   state.game.round += 1
+  await setQuestion()
 
   console.log("Starting Round:", state.game.round)
 
