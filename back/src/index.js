@@ -94,35 +94,36 @@ io.on("connection", (socket) => {
 		}
 	})
 
-	socket.on("buyPowerUp", ({ username, powerUpNumber }) => {
-		Usuarios.findOne({ name: username }, async function (err, user) {
-			if (!user) {
-				console.error(`Usuário ${username} não encontrado`);
-				return;
+	socket.on("buyPowerUp", async ({ username, powerUpNumber }) => {
+		const user = await Usuarios.findOne({ name: username }).exec();
+
+		if (!user) {
+			console.error(`Usuário ${username} não encontrado`);
+			return;
+		}
+
+		const powerUp = await findPowerUp(powerUpNumber);
+
+		if (!powerUp) {
+			console.error(`Número de Power Up ${powerUpNumber} inválido`);
+			return;
+		}
+
+		if (powerUp.valor > user.coins) {
+			console.log("message", "Usuário não possui moedas suficientes");
+			return;
+		}
+
+		const powerUpCount = user[`powerup${powerUpNumber}`]
+		console.log(user)
+		await Usuarios.updateOne(
+			{ name: username },
+			{
+				coins: user.coins - powerUp.valor,
+				[`powerup${powerUpNumber}`]: powerUpCount + 1,
 			}
-
-			const powerUp = await findPowerUp(powerUpNumber);
-
-			if (!powerUp) {
-				console.error(`Número de Power Up ${powerUpNumber} inválido`);
-				return;
-			}
-			console.log(`${powerUp.valor} custa o powerup e moedas do user ${user.coins}`)
-
-			if (powerUp.valor > user.coins) {
-				console.log("message", "Usuário não possui moedas suficientes");
-				return;
-			}
-
-			const powerUpCount = user[`powerup${powerUpNumber}`]
-			console.log('vai fazer update do user')
-			await Usuarios.updateOne(
-				{ name: username },
-				{
-					coins: user.coins - powerUp.valor,
-					[`powerup${powerUpNumber}`]: powerUpCount + 1,
-				})
-		})
+		)
+		
 	})
 
 	socket.on("joinLobby", (user, resp) => {
