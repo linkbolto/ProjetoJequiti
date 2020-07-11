@@ -6,7 +6,8 @@ export const state = {
   player: {},
   question: {},
   players: [],
-  handleEmojiFunction: () => {}
+  handleEmojiFunction: () => {},
+  changeQuestionCoins: () => {}
 }
 
 export const connect = () => {
@@ -41,22 +42,18 @@ export const connect = () => {
     else cc.director.loadScene('Perdeu')
   })
 
-  
-  //socket.on("receiveChatMessage", emojiName => {
-  //  state.handleEmojiFunction(emojiName);
-  //})
-
   socket.on("receiveChatMessage", emojiName => {
     state.handleEmojiFunction(emojiName);
+  })
+
+  socket.on('changeQuestionCoins', value => {
+    state.changeQuestionCoins(value)
   })
 }
 
 //EVENTOS
 export const chooseResponse = (param, func) => {
   socket.emit("chooseResponse", param, correctAnswer => {
-    if (param === correctAnswer) console.log("RESPOSTA CERTA")
-    else console.log("RESPOSTA ERRADA")
-
     func(param, correctAnswer)
   })
 }
@@ -75,6 +72,10 @@ export const login = (params, func) => {
 
 export const joinLobby = () => {
   socket.emit("joinLobby", state.player, joinLobbyResponse)
+}
+
+export const usePowerUp = id => {
+  socket.emit("usePowerUp", id)
 }
 
 //RESPOSTAS

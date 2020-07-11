@@ -13,7 +13,7 @@ cc.Class({
 
   start() {
       this.labelPlayerName.string = state.player.name
-      this.labelPlayerCoins.string = state.player.coins;
+      this.labelPlayerCoins.string = state.player.totalCoins;
       this.labelPowerUp1.string = state.player.powerup1
       this.labelPowerUp2.string = state.player.powerup2
       this.labelPowerUp3.string = state.player.powerup3
