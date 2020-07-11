@@ -106,6 +106,10 @@ io.on("connection", (socket) => {
 		}
 	})
 
+	socket.on("sendChatMessage", (emojiName) => {
+		socket.broadcast.emit('receiveChatMessage', emojiName);
+	})
+
 	socket.on("buyPowerUp", async ({ username, powerUpNumber }) => {
 		const user = await Usuarios.findOne({ name: username }).exec();
 
@@ -174,5 +178,6 @@ io.on("connection", (socket) => {
 		}
 	})
 })
+
 
 export default io

@@ -5,7 +5,8 @@ let socket = null
 export const state = {
   player: {},
   question: {},
-  players: []
+  players: [],
+  handleEmojiFunction: () => {}
 }
 
 export const connect = () => {
@@ -39,6 +40,15 @@ export const connect = () => {
       cc.director.loadScene('Ganhou')
     else cc.director.loadScene('Perdeu')
   })
+
+  
+  //socket.on("receiveChatMessage", emojiName => {
+  //  state.handleEmojiFunction(emojiName);
+  //})
+
+  socket.on("receiveChatMessage", emojiName => {
+    state.handleEmojiFunction(emojiName);
+  })
 }
 
 //EVENTOS
@@ -49,6 +59,10 @@ export const chooseResponse = (param, func) => {
 
     func(param, correctAnswer)
   })
+}
+
+export const sendChatMessage = (emojiName) => {
+  socket.emit("sendChatMessage", emojiName);
 }
 
 export const signUp = (params, func) => {
