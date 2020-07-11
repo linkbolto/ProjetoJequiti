@@ -1,5 +1,5 @@
 import socketio from "socket.io"
-import startGame from "./game/game.js"
+import { startGame, setGame } from "./game/game.js"
 import { Usuarios, PowerUps } from "./database/index.js"
 import findPowerUp from "./database/actions.js"
 
@@ -19,10 +19,10 @@ io.on("connection", (socket) => {
 			if (obj) {
 				socket.playerName = obj.name
 				if (socket.playerName === "")
-					callback(false,"Forneça um nome de usuário")
-				else{
+					callback(false, "Forneça um nome de usuário")
+				else {
 					callback(true, obj)
-					console.log("Login sucesso")	
+					console.log("Login sucesso")
 				}
 			} else {
 				callback(false, "Usuário ou senha inválidos")
@@ -38,7 +38,7 @@ io.on("connection", (socket) => {
 				//emite mensagem se o usuário já existe
 				if (obj) {
 					if (obj.name === "")
-						func(false, "Forneça um nome de usuário")	
+						func(false, "Forneça um nome de usuário")
 					else
 						func(false, "Nome de usuário já cadastrado")
 				}
@@ -130,34 +130,45 @@ io.on("connection", (socket) => {
 				[`powerup${powerUpNumber}`]: powerUpCount + 1,
 			}
 		)
-		
+
 	})
 
 	socket.on("joinLobby", (user, resp) => {
+		if (!state.game || Object.keys(state.game).length === 0)
+			setGame()
+
+		if (state.game.players.length >= 2)
+			return resp(false)
+		else
+			state.game.players.push(user)
+
 		resp(true)
 
-		startGame()
+		console.log('total of players ', state.game.players.length)
 
-		socket.on("chooseResponse", async (answer, resp) => {
-			const player = state.game.players.find(
-				(p) => p.name === socket.playerName
-			)
+		if (state.game.players.length > 1)
+			startGame()
+	})
 
-			if (player.answered) return
+	socket.on("chooseResponse", async (answer, resp) => {
+		const player = state.game.players.find(
+			(p) => p.name === socket.playerName
+		)
 
-			player.answered = true
+		if (player.answered) return
 
-			const correctAnswer = state.game.question.respostacerta
-			const isCorrect = correctAnswer === answer
+		player.answered = true
 
-			resp(correctAnswer)
+		const correctAnswer = state.game.question.respostacerta
+		const isCorrect = correctAnswer === answer
 
-			if (isCorrect) {
-				player.coins += 500
-			} else {
-				player.coins -= 2000
-			}
-		})
+		resp(correctAnswer)
+
+		if (isCorrect) {
+			player.coins += 500
+		} else {
+			player.coins -= 2000
+		}
 	})
 })
 
