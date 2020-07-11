@@ -11,10 +11,11 @@ export const state = {
 
 const handlePowerUp = (powerId, name) => {
 	if(powerId === 2) {
-		this.state.game.question.level *= 2
+		state.game.question.level *= 2
+		io.sockets.emit("changeQuestionLevel", state.game.question.level)
 	} 
-	else if(id === 3) {
-		const player = this.state.game.player.find(p => p.name === name)
+	else if(powerId === 3) {
+		const player = state.game.players.find(p => p.name === name)
 		player.protection = true
 	}
 }
@@ -67,7 +68,8 @@ io.on("connection", (socket) => {
 	})
 
 	// função para consumir um power up de acordo com o name do usuário e o número do power up
-	socket.on("usePowerup", async ({ id }, resp) => {
+	socket.on("usePowerUp", async (id , resp) => {
+		console.log(id)
 		const name = socket.playerName
 		const user = await Usuarios.findOne({ name }).exec()
 
@@ -139,29 +141,31 @@ io.on("connection", (socket) => {
 		resp(true)
 
 		startGame()
+	})
 
-		socket.on("chooseResponse", async (answer, resp) => {
-			const player = state.game.players.find(
-				(p) => p.name === socket.playerName
-			)
+socket.on("chooseResponse", async (answer, resp) => {
+	const player = state.game.players.find(
+		(p) => p.name === socket.playerName
+	)
 
-			if (player.answered) return
+	if (player.answered) return
 
-			player.answered = true
+	player.answered = true
 
-			const correctAnswer = state.game.question.respostacerta
-			const isCorrect = correctAnswer === answer
+	const correctAnswer = state.game.question.respostacerta
+	const isCorrect = correctAnswer === answer
 
-			resp(correctAnswer)
+	resp(correctAnswer)
 
-			const protection = player.protection
-			player.protection = false
+	const protection = player.protection
+	player.protection = false
 
-			if (isCorrect) return player.coins += 500
-			if (protection) return
+	console.log(state.game.question.level)
 
-			player.coins -= 2000
-		})
+	if (isCorrect) return player.coins += state.game.question.level * 100
+	if (protection) return
+
+	player.coins -= state.game.question.level * 50
 	})
 })
 

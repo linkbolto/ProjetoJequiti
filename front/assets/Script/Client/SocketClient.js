@@ -5,7 +5,8 @@ let socket = null
 export const state = {
   player: {},
   question: {},
-  players: []
+  players: [],
+  changeQuestionLevel: null
 }
 
 export const connect = () => {
@@ -39,14 +40,15 @@ export const connect = () => {
       cc.director.loadScene('Ganhou')
     else cc.director.loadScene('Perdeu')
   })
+
+  socket.on('changeQuestionLevel', value => {
+    state.changeQuestionLevel(value)
+  })
 }
 
 //EVENTOS
 export const chooseResponse = (param, func) => {
   socket.emit("chooseResponse", param, correctAnswer => {
-    if(param === correctAnswer) console.log("RESPOSTA CERTA")
-    else console.log("RESPOSTA ERRADA")
-
     func(param, correctAnswer)
   })
 }
@@ -63,7 +65,7 @@ export const joinLobby = () => {
   socket.emit("joinLobby", '', joinLobbyResponse)
 }
 
-export const usePorweup = (id, func) => {
+export const usePowerUp = (id, func) => {
   socket.emit("usePowerUp", id, func)   
 }
 

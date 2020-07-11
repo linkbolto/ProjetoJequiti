@@ -1,4 +1,4 @@
-import { state, sendPowerUp } from "../Client/SocketClient";
+import { state, usePowerUp } from "../Client/SocketClient";
 
 cc.Class({
   extends: cc.Component,
@@ -8,13 +8,16 @@ cc.Class({
   },
 
   start() {
+    window.pu1 = this.powerUp1.bind(this)
+    window.pu2 = this.powerUp2.bind(this)
+    window.pu3 = this.powerUp3.bind(this)
   },
 
   powerUp1() {
-    const correct = state.question.respostaCerta;
-    let chosen = -1;
+    const correct = state.question.respostacerta - 1;
+    let chosen = correct;
 
-    while (chosen === correct) chosen = Math.floor(Math.random * 4);
+    while (chosen === correct) chosen = Math.floor(Math.random() * 4);
 
     this.eraseAnswer(chosen)
   },
@@ -26,6 +29,10 @@ cc.Class({
   },
 
   powerUp2() {
-    sendPowerUp(2)
+    usePowerUp(2, () => {})
+  },
+
+  powerUp3() {
+    usePowerUp(3, () => {})
   }
 });

@@ -5,6 +5,7 @@ cc.Class({
 
   properties: {
     Question: cc.Label,
+    QuestionLevel: cc.Label,
     Answers: [cc.Node],
     correctSprite: cc.SpriteFrame,
     chooseSprite: cc.SpriteFrame,
@@ -18,6 +19,8 @@ cc.Class({
     this.labels = this.Answers.map((a) => {
       return a.getComponentInChildren(cc.Label);
     });
+
+    state.changeQuestionLevel = this.changeQuestionLevel.bind(this)
   },
 
   start() {
@@ -26,6 +29,8 @@ cc.Class({
 
     this.Question.string = question.pergunta;
 
+    this.QuestionLevel = this.Question
+    this.QuestionLevel.string = question.level.toString();
     this.labels[0].string = question.resposta1;
     this.labels[1].string = question.resposta2;
     this.labels[2].string = question.resposta3;
@@ -71,5 +76,9 @@ cc.Class({
     this.Answers[correct - 1].getComponentInChildren(
       cc.Sprite
     ).spriteFrame = this.correctSprite;
+  },
+
+  changeQuestionLevel(value) {
+    this.QuestionLevel.string = value.toString()
   },
 });
