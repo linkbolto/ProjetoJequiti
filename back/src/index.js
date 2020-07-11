@@ -144,8 +144,6 @@ io.on("connection", (socket) => {
 
 		resp(true)
 
-		console.log('total of players ', state.game.players.length)
-
 		if (state.game.players.length > 1)
 			startGame()
 	})
