@@ -51,7 +51,7 @@ io.on("connection", (socket) => {
 						var item = {
 							name: signupData.userSignup,
 							password: signupData.passwordSignup,
-							coins: 1000,
+							totalCoins: 1000,
 							powerup1: 10,
 							powerup2: 10,
 							powerup3: 10,
@@ -64,7 +64,7 @@ io.on("connection", (socket) => {
 				})
 			}
 		} else {
-			func(false, "passwords não coincidem")
+			func(false, "senhas não coincidem")
 		}
 	})
 
@@ -85,25 +85,6 @@ io.on("connection", (socket) => {
 				console.log("Usuário " + name + " não encontrado")
 			}
 		})
-	})
-
-	socket.on("addCoins", ({ name, quantity }) => {
-		console.log("adding coins")
-		if (quantity && quantity > 0) {
-			Usuarios.findOne({ name }, function (err, obj) {
-				if (obj) {
-					Usuarios.updateOne(
-						{ name },
-						{ coins: obj.coins + quantity },
-						() => { }
-					)
-				} else {
-					console.error("Usuário " + name + " não encontrado")
-				}
-			})
-		} else {
-			console.error("A quantidade de moedas é inválida")
-		}
 	})
 
 	socket.on("sendChatMessage", (emojiName) => {
@@ -135,7 +116,7 @@ io.on("connection", (socket) => {
 		await Usuarios.updateOne(
 			{ name: username },
 			{
-				coins: user.coins - powerUp.valor,
+				coins: user.totalCoins - powerUp.valor,
 				[`powerup${powerUpNumber}`]: powerUpCount + 1,
 			}
 		)
@@ -171,13 +152,29 @@ io.on("connection", (socket) => {
 
 		resp(correctAnswer)
 
-		if (isCorrect) {
+		if (isCorrect)
 			player.coins += 500
-		} else {
-			player.coins -= 2000
-		}
 	})
 })
+
+export const addCoins = (name, quantity) => {
+	console.log("adding coins")
+	if (quantity && quantity > 0) {
+		Usuarios.findOne({ name }, function (err, obj) {
+			if (obj) {
+				Usuarios.updateOne(
+					{ name },
+					{ totalCoins: obj.totalCoins + quantity },
+					() => { }
+				)
+			} else {
+				console.error("Usuário " + name + " não encontrado")
+			}
+		})
+	} else {
+		console.error("A quantidade de moedas é inválida")
+	}
+}
 
 
 export default io
