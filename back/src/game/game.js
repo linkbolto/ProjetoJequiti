@@ -8,20 +8,18 @@ const sleep = async (time) => {
 
 const ROUNDS = 5
 
-const setGame = () => {
+export const setGame = () => {
   state.game = {
     question: {},
     round: 0,
-    players: [
-      {name: 'lucas', coins: 0},
-      {name: 'jogador2', coins: 500}
-    ]
+    players: []
   }
 }
 
 const endGame = () => {
   console.log("Ending Game...")
   io.sockets.emit("gameEnd", state.game)
+  setGame()
 }
 
 const setQuestion = async () => {
@@ -53,9 +51,8 @@ const startRound = async () => {
   await sleep(5000)
 }
 
-const startGame = async () => {
+export const startGame = async () => {
   console.log("Starting Game...")
-  setGame()
 
   await sleep(2000)
 
@@ -66,5 +63,3 @@ const startGame = async () => {
 
   endGame()
 }
-
-export default startGame

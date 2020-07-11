@@ -1,5 +1,5 @@
 import socketio from "socket.io"
-import startGame from "./game/game.js"
+import { startGame, setGame } from "./game/game.js"
 import { Usuarios, PowerUps } from "./database/index.js"
 import findPowerUp from "./database/actions.js"
 
@@ -29,8 +29,12 @@ io.on("connection", (socket) => {
 		Usuarios.findOne({ name, password }, function (err, obj) {
 			if (obj) {
 				socket.playerName = obj.name
-				callback(true, obj)
-				console.log("Login sucesso")
+				if (socket.playerName === "")
+					callback(false, "Forneça um nome de usuário")
+				else {
+					callback(true, obj)
+					console.log("Login sucesso")
+				}
 			} else {
 				callback(false, "Usuário ou senha inválidos")
 				console.log("Login erro")
@@ -41,27 +45,35 @@ io.on("connection", (socket) => {
 	socket.on("signup", (signupData, func) => {
 		console.log(signupData)
 		if (signupData.passwordSignup === signupData.confirmSignup) {
-			Usuarios.findOne({ name: signupData.userSignup }, function (err, obj) {
-				//emite mensagem se o usuário já existe
-				if (obj) {
-					func(false, "name de usuário já cadastrado")
-				}
-				//se o usuário não existe, realiza o cadastro
-				else {
-					var item = {
-						name: signupData.userSignup,
-						password: signupData.passwordSignup,
-						coins: 1000,
-						powerup1: 10,
-						powerup2: 10,
-						powerup3: 10,
-						compra: false,
+			//Não deixa se cadastrar com o campo de senha vazio
+			if (signupData.passwordSignup === "")
+				func(false, "Forneça uma senha válida")
+			else{
+				Usuarios.findOne({ name: signupData.userSignup }, function (err, obj) {
+					//emite mensagem se o usuário já existe
+					if (obj) {
+						if (obj.name === "")
+							func(false, "Forneça um nome de usuário")	
+						else
+							func(false, "Nome de usuário já cadastrado")
 					}
-					var data = new Usuarios(item)
-					data.save()
-					func(true, data)
-				}
-			})
+					//se o usuário não existe, realiza o cadastro
+					else {
+						var item = {
+							name: signupData.userSignup,
+							password: signupData.passwordSignup,
+							coins: 1000,
+							powerup1: 10,
+							powerup2: 10,
+							powerup3: 10,
+							compra: false,
+						}
+						var data = new Usuarios(item)
+						data.save()
+						func(true, data)
+					}
+				})
+			}
 		} else {
 			func(false, "passwords não coincidem")
 		}
@@ -134,13 +146,21 @@ io.on("connection", (socket) => {
 				[`powerup${powerUpNumber}`]: powerUpCount + 1,
 			}
 		)
-		
+
 	})
 
 	socket.on("joinLobby", (user, resp) => {
-		resp(true)
+		if (!state.game || Object.keys(state.game).length === 0)
+			setGame()
 
-		startGame()
+		if (state.game.players.length >= 2)
+			return resp(false)
+		else
+			state.game.players.push(user)
+
+		resp(true)
+    if (state.game.players.length > 1)
+			startGame()
 	})
 
 socket.on("chooseResponse", async (answer, resp) => {
@@ -166,7 +186,6 @@ socket.on("chooseResponse", async (answer, resp) => {
 	if (protection) return
 
 	player.coins -= state.game.question.level * 50
-	})
 })
 
 export default io
