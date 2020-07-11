@@ -34,30 +34,35 @@ io.on("connection", (socket) => {
 	socket.on("signup", (signupData, func) => {
 		console.log(signupData)
 		if (signupData.passwordSignup === signupData.confirmSignup) {
-			Usuarios.findOne({ name: signupData.userSignup }, function (err, obj) {
-				//emite mensagem se o usuário já existe
-				if (obj) {
-					if (obj.name === "")
-						func(false, "Forneça um nome de usuário")
-					else
-						func(false, "Nome de usuário já cadastrado")
-				}
-				//se o usuário não existe, realiza o cadastro
-				else {
-					var item = {
-						name: signupData.userSignup,
-						password: signupData.passwordSignup,
-						coins: 1000,
-						powerup1: 10,
-						powerup2: 10,
-						powerup3: 10,
-						compra: false,
+			//Não deixa se cadastrar com o campo de senha vazio
+			if (signupData.passwordSignup === "")
+				func(false, "Forneça uma senha válida")
+			else{
+				Usuarios.findOne({ name: signupData.userSignup }, function (err, obj) {
+					//emite mensagem se o usuário já existe
+					if (obj) {
+						if (obj.name === "")
+							func(false, "Forneça um nome de usuário")	
+						else
+							func(false, "Nome de usuário já cadastrado")
 					}
-					var data = new Usuarios(item)
-					data.save()
-					func(true, data)
-				}
-			})
+					//se o usuário não existe, realiza o cadastro
+					else {
+						var item = {
+							name: signupData.userSignup,
+							password: signupData.passwordSignup,
+							coins: 1000,
+							powerup1: 10,
+							powerup2: 10,
+							powerup3: 10,
+							compra: false,
+						}
+						var data = new Usuarios(item)
+						data.save()
+						func(true, data)
+					}
+				})
+			}
 		} else {
 			func(false, "passwords não coincidem")
 		}
