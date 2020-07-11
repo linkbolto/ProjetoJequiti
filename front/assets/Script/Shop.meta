@@ -1,6 +1,10 @@
 {
   "ver": "1.0.1",
+<<<<<<< HEAD
   "uuid": "614718a1-2a2e-420a-9ce2-d5a9b11bc763",
+=======
+  "uuid": "de89d4bb-721e-4765-9855-df5f8838fcec",
+>>>>>>> master
   "isSubpackage": false,
   "subpackageName": "",
   "subMetas": {}

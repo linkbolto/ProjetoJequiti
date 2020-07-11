@@ -1,5 +1,5 @@
 import socketio from "socket.io"
-import startGame from "./game/game.js"
+import { startGame, setGame } from "./game/game.js"
 import { Usuarios, PowerUps } from "./database/index.js"
 import findPowerUp from "./database/actions.js"
 
@@ -18,8 +18,12 @@ io.on("connection", (socket) => {
 		Usuarios.findOne({ name, password }, function (err, obj) {
 			if (obj) {
 				socket.playerName = obj.name
-				callback(true, obj)
-				console.log("Login sucesso")
+				if (socket.playerName === "")
+					callback(false, "Forneça um nome de usuário")
+				else {
+					callback(true, obj)
+					console.log("Login sucesso")
+				}
 			} else {
 				callback(false, "Usuário ou senha inválidos")
 				console.log("Login erro")
@@ -30,29 +34,37 @@ io.on("connection", (socket) => {
 	socket.on("signup", (signupData, func) => {
 		console.log(signupData)
 		if (signupData.passwordSignup === signupData.confirmSignup) {
-			Usuarios.findOne({ name: signupData.userSignup }, function (err, obj) {
-				//emite mensagem se o usuário já existe
-				if (obj) {
-					func(false, "name de usuário já cadastrado")
-				}
-				//se o usuário não existe, realiza o cadastro
-				else {
-					var item = {
-						name: signupData.userSignup,
-						password: signupData.passwordSignup,
-						coins: 1000,
-						powerup1: 10,
-						powerup2: 10,
-						powerup3: 10,
-						compra: false,
+			//Não deixa se cadastrar com o campo de senha vazio
+			if (signupData.passwordSignup === "")
+				func(false, "Forneça uma senha válida")
+			else{
+				Usuarios.findOne({ name: signupData.userSignup }, function (err, obj) {
+					//emite mensagem se o usuário já existe
+					if (obj) {
+						if (obj.name === "")
+							func(false, "Forneça um nome de usuário")	
+						else
+							func(false, "Nome de usuário já cadastrado")
 					}
-					var data = new Usuarios(item)
-					data.save()
-					func(true, data)
-				}
-			})
+					//se o usuário não existe, realiza o cadastro
+					else {
+						var item = {
+							name: signupData.userSignup,
+							password: signupData.passwordSignup,
+							totalCoins: 1000,
+							powerup1: 10,
+							powerup2: 10,
+							powerup3: 10,
+							compra: false,
+						}
+						var data = new Usuarios(item)
+						data.save()
+						func(true, data)
+					}
+				})
+			}
 		} else {
-			func(false, "passwords não coincidem")
+			func(false, "senhas não coincidem")
 		}
 	})
 
@@ -75,23 +87,8 @@ io.on("connection", (socket) => {
 		})
 	})
 
-	socket.on("addCoins", ({ name, quantity }) => {
-		console.log("adding coins")
-		if (quantity && quantity > 0) {
-			Usuarios.findOne({ name }, function (err, obj) {
-				if (obj) {
-					Usuarios.updateOne(
-						{ name },
-						{ coins: obj.coins + quantity },
-						() => { }
-					)
-				} else {
-					console.error("Usuário " + name + " não encontrado")
-				}
-			})
-		} else {
-			console.error("A quantidade de moedas é inválida")
-		}
+	socket.on("sendChatMessage", (emojiName) => {
+		socket.broadcast.emit('receiveChatMessage', emojiName);
 	})
 
 	socket.on("buyPowerUp", async ({ username, powerUpNumber }) => {
@@ -119,39 +116,65 @@ io.on("connection", (socket) => {
 		await Usuarios.updateOne(
 			{ name: username },
 			{
-				coins: user.coins - powerUp.valor,
+				coins: user.totalCoins - powerUp.valor,
 				[`powerup${powerUpNumber}`]: powerUpCount + 1,
 			}
 		)
-		
+
 	})
 
 	socket.on("joinLobby", (user, resp) => {
+		if (!state.game || Object.keys(state.game).length === 0)
+			setGame()
+
+		if (state.game.players.length >= 2)
+			return resp(false)
+		else
+			state.game.players.push(user)
+
 		resp(true)
 
-		startGame()
+		if (state.game.players.length > 1)
+			startGame()
+	})
 
-		socket.on("chooseResponse", async (answer, resp) => {
-			const player = state.game.players.find(
-				(p) => p.name === socket.playerName
-			)
+	socket.on("chooseResponse", async (answer, resp) => {
+		const player = state.game.players.find(
+			(p) => p.name === socket.playerName
+		)
 
-			if (player.answered) return
+		if (player.answered) return
 
-			player.answered = true
+		player.answered = true
 
-			const correctAnswer = state.game.question.respostacerta
-			const isCorrect = correctAnswer === answer
+		const correctAnswer = state.game.question.respostacerta
+		const isCorrect = correctAnswer === answer
 
-			resp(correctAnswer)
+		resp(correctAnswer)
 
-			if (isCorrect) {
-				player.coins += 500
-			} else {
-				player.coins -= 2000
-			}
-		})
+		if (isCorrect)
+			player.coins += 500
 	})
 })
+
+export const addCoins = (name, quantity) => {
+	console.log("adding coins")
+	if (quantity && quantity > 0) {
+		Usuarios.findOne({ name }, function (err, obj) {
+			if (obj) {
+				Usuarios.updateOne(
+					{ name },
+					{ totalCoins: obj.totalCoins + quantity },
+					() => { }
+				)
+			} else {
+				console.error("Usuário " + name + " não encontrado")
+			}
+		})
+	} else {
+		console.error("A quantidade de moedas é inválida")
+	}
+}
+
 
 export default io
