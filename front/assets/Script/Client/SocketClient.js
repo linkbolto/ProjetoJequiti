@@ -12,8 +12,8 @@ export const connect = () => {
   socket = io("localhost:3500");
 
   socket.on("connect", () => {
-   // socket.emit("addCoins", {name: "1", quantity: 1})
-   // socket.emit("buyPowerUp", {name: "1", powerUp: 2, price: 10000})
+    // socket.emit("addCoins", {name: "1", quantity: 1})
+    // socket.emit("buyPowerUp", {name: "1", powerUp: 2, price: 10000})
     //socket.emit("joinLobby", state.player.name, joinLobbyResponse)
     //socket.emit('usePowerup', {name: 'lucas', numero: '1'})
 
@@ -35,7 +35,7 @@ export const connect = () => {
     const myPlayer = players.find(p => p.name === player.name)
     const otherPlayer = players.find(p => p.name !== player.name)
 
-    if (myPlayer.coins >= otherPlayer.coins) 
+    if (myPlayer.coins >= otherPlayer.coins)
       cc.director.loadScene('Ganhou')
     else cc.director.loadScene('Perdeu')
   })
@@ -44,7 +44,7 @@ export const connect = () => {
 //EVENTOS
 export const chooseResponse = (param, func) => {
   socket.emit("chooseResponse", param, correctAnswer => {
-    if(param === correctAnswer) console.log("RESPOSTA CERTA")
+    if (param === correctAnswer) console.log("RESPOSTA CERTA")
     else console.log("RESPOSTA ERRADA")
 
     func(param, correctAnswer)
@@ -60,14 +60,14 @@ export const login = (params, func) => {
 }
 
 export const joinLobby = () => {
-  socket.emit("joinLobby", '', joinLobbyResponse)
+  socket.emit("joinLobby", state.player, joinLobbyResponse)
 }
 
 //RESPOSTAS
 const joinLobbyResponse = (resp) => {
-  if(resp) cc.director.loadScene("LookingForEnemy");
+  if (resp) cc.director.loadScene("LookingForEnemy");
 }
 
 const loginResponse = resp => {
-  if(resp) state.player = resp
+  if (resp) state.player = resp
 }

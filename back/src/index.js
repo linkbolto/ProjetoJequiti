@@ -1,5 +1,5 @@
 import socketio from "socket.io"
-import startGame from "./game/game.js"
+import { startGame, setGame } from "./game/game.js"
 import { Usuarios, PowerUps } from "./database/index.js"
 import findPowerUp from "./database/actions.js"
 
@@ -19,10 +19,10 @@ io.on("connection", (socket) => {
 			if (obj) {
 				socket.playerName = obj.name
 				if (socket.playerName === "")
-					callback(false,"Forneça um nome de usuário")
-				else{
+					callback(false, "Forneça um nome de usuário")
+				else {
 					callback(true, obj)
-					console.log("Login sucesso")	
+					console.log("Login sucesso")
 				}
 			} else {
 				callback(false, "Usuário ou senha inválidos")
@@ -135,34 +135,43 @@ io.on("connection", (socket) => {
 				[`powerup${powerUpNumber}`]: powerUpCount + 1,
 			}
 		)
-		
+
 	})
 
 	socket.on("joinLobby", (user, resp) => {
+		if (!state.game || Object.keys(state.game).length === 0)
+			setGame()
+
+		if (state.game.players.length >= 2)
+			return resp(false)
+		else
+			state.game.players.push(user)
+
 		resp(true)
 
-		startGame()
+		if (state.game.players.length > 1)
+			startGame()
+	})
 
-		socket.on("chooseResponse", async (answer, resp) => {
-			const player = state.game.players.find(
-				(p) => p.name === socket.playerName
-			)
+	socket.on("chooseResponse", async (answer, resp) => {
+		const player = state.game.players.find(
+			(p) => p.name === socket.playerName
+		)
 
-			if (player.answered) return
+		if (player.answered) return
 
-			player.answered = true
+		player.answered = true
 
-			const correctAnswer = state.game.question.respostacerta
-			const isCorrect = correctAnswer === answer
+		const correctAnswer = state.game.question.respostacerta
+		const isCorrect = correctAnswer === answer
 
-			resp(correctAnswer)
+		resp(correctAnswer)
 
-			if (isCorrect) {
-				player.coins += 500
-			} else {
-				player.coins -= 2000
-			}
-		})
+		if (isCorrect) {
+			player.coins += 500
+		} else {
+			player.coins -= 2000
+		}
 	})
 })
 
