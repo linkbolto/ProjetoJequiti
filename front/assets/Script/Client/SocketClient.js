@@ -63,6 +63,10 @@ export const joinLobby = () => {
   socket.emit("joinLobby", '', joinLobbyResponse)
 }
 
+export const usePorweup = (id, func) => {
+  socket.emit("usePowerUp", id, func)   
+}
+
 //RESPOSTAS
 const joinLobbyResponse = (resp) => {
   if(resp) cc.director.loadScene("LookingForEnemy");

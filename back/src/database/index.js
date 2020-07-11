@@ -18,7 +18,6 @@ mongoose.connection.on('disconnected', function () {
  console.log('=====Conexão finalizada=====');
 }); 
 
-
 export const Perguntas = mongoose.model('Pergunta', {
   id: Number,
   pergunta: String,

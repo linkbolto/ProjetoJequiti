@@ -9,6 +9,16 @@ export const state = {
 	game: {},
 }
 
+const handlePowerUp = (powerId, name) => {
+	if(powerId === 2) {
+		this.state.game.question.level *= 2
+	} 
+	else if(id === 3) {
+		const player = this.state.game.player.find(p => p.name === name)
+		player.protection = true
+	}
+}
+
 io.on("connection", (socket) => {
 	console.log("client connectado")
 
@@ -57,22 +67,21 @@ io.on("connection", (socket) => {
 	})
 
 	// função para consumir um power up de acordo com o name do usuário e o número do power up
-	socket.on("usePowerup", ({ name, numero }) => {
-		console.log("Received powerup event")
-		Usuarios.findOne({ name }, function (err, obj) {
-			console.log(obj)
-			if (obj && obj[`powerup${numero}`]) {
-				const count = obj[`powerup${numero}`]
-				console.log(count)
-				Usuarios.updateOne(
-					{ name },
-					{ [`powerup${numero}`]: count - 1 },
-					() => { }
-				)
-			} else {
-				console.log("Usuário " + name + " não encontrado")
-			}
-		})
+	socket.on("usePowerup", async ({ id }, resp) => {
+		const name = socket.playerName
+		const user = await Usuarios.findOne({ name }).exec()
+
+		if(!user) return resp(false)
+
+		const powerup = user[`powerup${id}`]
+
+		if(!powerup) return resp(false)
+
+		await Usuarios.updateOne({name}, {[`powerup${id}`]: powerup - 1}, () => {})
+
+		resp(true)
+
+		handlePowerUp(id, user.name)
 	})
 
 	socket.on("addCoins", ({ name, quantity }) => {
@@ -145,11 +154,13 @@ io.on("connection", (socket) => {
 
 			resp(correctAnswer)
 
-			if (isCorrect) {
-				player.coins += 500
-			} else {
-				player.coins -= 2000
-			}
+			const protection = player.protection
+			player.protection = false
+
+			if (isCorrect) return player.coins += 500
+			if (protection) return
+
+			player.coins -= 2000
 		})
 	})
 })
