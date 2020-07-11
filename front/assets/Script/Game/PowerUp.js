@@ -5,12 +5,24 @@ cc.Class({
 
   properties: {
     Answers: [cc.Node],
+    PowerUpMenu: cc.Node,
   },
 
   start() {
-    window.pu1 = this.powerUp1.bind(this)
-    window.pu2 = this.powerUp2.bind(this)
-    window.pu3 = this.powerUp3.bind(this)
+  },
+
+  openPowerUpMenu () {
+    cc.tween(this.PowerUpMenu)
+    .to(0, {position: cc.v2(208, -110)})
+    .to(0.25, { position: cc.v2(208, 0)})
+    .start()
+  },
+
+  closePowerUpMenu() {
+    cc.tween(this.PowerUpMenu)
+    .to(0.25, { position: cc.v2(208,-110) })
+    .to(0, {position: cc.v2(208, -1000)})
+    .start()
   },
 
   powerUp1() {
