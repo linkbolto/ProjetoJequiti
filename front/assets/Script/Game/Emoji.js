@@ -1,3 +1,5 @@
+import {sendChatMessage, state} from '../Client/SocketClient.js';
+
 cc.Class({
   extends: cc.Component,
 
@@ -12,11 +14,12 @@ cc.Class({
     balloonHaha: cc.Node,
     balloonDots: cc.Node,
     balloonZzz: cc.Node,
-	  balloonAlert: cc.Node,
+    balloonAlert: cc.Node,
+    userAvatar: cc.Node,
   },
 
   start() {
-
+    state.handleEmojiFunction = this.showEmoji.bind(this);
   },
 
   closeEmojiSelector() {
@@ -29,24 +32,31 @@ cc.Class({
     this.slideInBackLayer();
   },
 
-  handleEmojiSelection(event, selectedEmojiName) {
+  handleEmojiSelection(event, emojiName) {
     this.slideOutEmojiSelector();
     this.slideOutBackLayer();
-    const emojiBalloon = this.retrieveEmojiComponent(selectedEmojiName);
-    this.slideInSelectedEmoji(emojiBalloon);
+    this.showEmoji(emojiName);
+    sendChatMessage(emojiName);
   },
+
+  showEmoji(emojiName) {
+    console.log('front recebeu broadcast', emojiName);
+    const emojiBalloon = this.retrieveEmojiComponent(emojiName);
+    this.slideInSelectedEmoji(emojiBalloon);
+    this.slideInUserAvatar();
+  },
+
   //--------------------
   // Animation
   //--------------------
   slideOutEmojiSelector() {
 
-        cc.tween(this.emojiSelector)
+      cc.tween(this.emojiSelector)
       .to(0.2, { position: cc.v2(-435.737, -287.956) })
       .start();
   },
 
   slideInEmojiSelector() {
-    console.log(this.emojiSelector)
     cc.tween(this.emojiSelector)
       .to(0.2, { position: cc.v2(8, -298) })
       .start();
@@ -67,19 +77,21 @@ cc.Class({
       .start();
   },
 
+  slideInUserAvatar() {
+    cc.tween(this.userAvatar)
+      .to(0.5, { position: cc.v2(-44, -310) })
+      .to(1.5, { position: cc.v2(-44, -310) })
+      .to(0.5, { position: cc.v2(-44, -423) })
+      .start();
+  },
+
   retrieveEmojiComponent(emojiName) {
-    console.log(this.balloonAlert)
     switch (emojiName) {
-      case "haha":
-        return this.balloonHaha;
-      case "zzz":
-        return this.balloonZzz;
-      case "alert":
-        return this.balloonAlert;
-      case "dots":
-        return this.balloonDots;
-      default:
-        return this.balloonHaha;
+      case "haha": return this.balloonHaha;
+      case "zzz": return this.balloonZzz;
+      case "alert": return this.balloonAlert;
+      case "dots":return this.balloonDots;
+      default: return this.balloonHaha;
     }
   },
 });
