@@ -18,8 +18,12 @@ io.on("connection", (socket) => {
 		Usuarios.findOne({ name, password }, function (err, obj) {
 			if (obj) {
 				socket.playerName = obj.name
-				callback(true, obj)
-				console.log("Login sucesso")
+				if (socket.playerName === "")
+					callback(false,"Forneça um nome de usuário")
+				else{
+					callback(true, obj)
+					console.log("Login sucesso")	
+				}
 			} else {
 				callback(false, "Usuário ou senha inválidos")
 				console.log("Login erro")
@@ -33,7 +37,10 @@ io.on("connection", (socket) => {
 			Usuarios.findOne({ name: signupData.userSignup }, function (err, obj) {
 				//emite mensagem se o usuário já existe
 				if (obj) {
-					func(false, "name de usuário já cadastrado")
+					if (obj.name === "")
+						func(false, "Forneça um nome de usuário")	
+					else
+						func(false, "Nome de usuário já cadastrado")
 				}
 				//se o usuário não existe, realiza o cadastro
 				else {
