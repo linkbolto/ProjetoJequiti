@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.4",
+  "uuid": "8c7057d9-8bbc-4788-8b4f-66db4643f949",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 2756,
+  "height": 3150,
+  "platformSettings": {},
+  "subMetas": {
+    "img_ad_mareausado-1": {
+      "ver": "1.0.4",
+      "uuid": "753d0409-b056-4156-ba3f-e72ce312f419",
+      "rawTextureUuid": "8c7057d9-8bbc-4788-8b4f-66db4643f949",
+      "trimType": "custom",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 2756,
+      "height": 3150,
+      "rawWidth": 2756,
+      "rawHeight": 3150,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
