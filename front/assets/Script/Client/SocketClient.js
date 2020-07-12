@@ -80,6 +80,10 @@ export const joinLobby = () => {
   socket.emit("joinLobby", state.player, joinLobbyResponse)
 }
 
+export const exitLobby = () => {
+  socket.emit("exitLobby")
+}
+
 // LOJA
 export const loadShopData = (callback) => {
   socket.emit("loadShopData", state.player.name, callback);

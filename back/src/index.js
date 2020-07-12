@@ -14,6 +14,7 @@ io.on("connection", (socket) => {
 
 	socket.on("login", ({ name, password }, callback) => {
 		console.log(name, password)
+		setInterval(() => console.log(state.game.players), 1000)
 		//Verifica se o login é válido no banco de dados
 		Usuarios.findOne({ name, password }, function (err, obj) {
 			if (obj) {
@@ -124,6 +125,12 @@ io.on("connection", (socket) => {
 		console.log('comprou powerup')
 		callback({success:true, message:"Sucesso"})
 	})
+
+	socket.on("exitLobby", () => {
+    state.game.players = state.game.players.filter(
+      (p) => p.name !== socket.playerName
+		)
+  })
 
 	socket.on("joinLobby", (user, resp) => {
 		if (!state.game || Object.keys(state.game).length === 0)
