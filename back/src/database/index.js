@@ -38,7 +38,8 @@ export const Usuarios = mongoose.model('usuario', {
     powerup2: Number,
     powerup3: Number,
     coins: Number,
-    answered: Boolean
+    answered: Boolean,
+    removeAds: Boolean
 }, 'Users')
 
 export const PowerUps = mongoose.model('PowerUp', {

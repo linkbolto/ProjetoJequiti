@@ -94,6 +94,10 @@ export const usePowerUp = id => {
   socket.emit("usePowerUp", id)
 }
 
+export const removeAds = () => {
+  socket.emit("removeAds", state.player.name)
+}
+
 //RESPOSTAS
 const joinLobbyResponse = (resp) => {
   if (resp) cc.director.loadScene("LookingForEnemy");

@@ -55,7 +55,7 @@ io.on("connection", (socket) => {
 							powerup1: 10,
 							powerup2: 10,
 							powerup3: 10,
-							compra: false,
+							removeAds: false,
 						}
 						var data = new Usuarios(item)
 						data.save()
@@ -64,7 +64,7 @@ io.on("connection", (socket) => {
 				})
 			}
 		} else {
-			func(false, "senhas não coincidem")
+			func(false, "Senhas não coincidem")
 		}
 	})
 
@@ -184,6 +184,20 @@ io.on("connection", (socket) => {
 		})
 		console.log(data);
 		callback(data);
+	})
+
+	socket.on("removeAds", async (name) => {
+		Usuarios.findOne({ name }, function (err, obj) {
+			if (obj) {
+				Usuarios.updateOne(
+					{ name },
+					{ removeAds: true },
+					() => { }
+				)
+			} else {
+				console.error("Usuário " + name + " não encontrado")
+			}
+		})
 	})
 })
 

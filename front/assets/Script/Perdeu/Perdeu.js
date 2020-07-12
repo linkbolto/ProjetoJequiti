@@ -1,9 +1,4 @@
-// Learn cc.Class:
-//  - https://docs.cocos.com/creator/manual/en/scripting/class.html
-// Learn Attribute:
-//  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
+import { state } from "../Client/SocketClient";
 
 cc.Class({
     extends: cc.Component,
@@ -16,7 +11,11 @@ cc.Class({
 
     // onLoad () {},
     clickButtonContinue(){
-        cc.director.loadScene("HomeScreen")
+        if (state.player && !state.player.removeAds) {
+            cc.director.loadScene("AdScreen")
+        } else {
+            cc.director.loadScene("HomeScreen")
+        }
     },
 
     start () {
