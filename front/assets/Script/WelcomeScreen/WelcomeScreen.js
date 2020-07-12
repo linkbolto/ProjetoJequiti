@@ -5,7 +5,6 @@ cc.Class({
     properties: {    
         buttonCreateAccount: cc.Button,
         buttonLogin: cc.Button,
-        buttonLoginGuest: cc.Button
     },
 
     onLoad: function () {
@@ -16,10 +15,5 @@ cc.Class({
         this.buttonLogin.node.on('click', ()=>{
             cc.director.loadScene("Login");
         }, this);
-           
-        this.buttonLoginGuest.node.on('click', ()=>{
-            cc.director.loadScene("HomeScreen");
-        }, this);
     },
-    
 });
