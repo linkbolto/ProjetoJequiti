@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.4",
+  "uuid": "9bceb768-fe3c-4120-b866-1ef966cf2318",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 414,
+  "height": 105,
+  "platformSettings": {},
+  "subMetas": {
+    "ico_fundo_power": {
+      "ver": "1.0.4",
+      "uuid": "25feef40-f15f-47a4-91cf-3f851646270b",
+      "rawTextureUuid": "9bceb768-fe3c-4120-b866-1ef966cf2318",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 414,
+      "height": 105,
+      "rawWidth": 414,
+      "rawHeight": 105,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

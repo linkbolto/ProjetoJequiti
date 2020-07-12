@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.4",
+  "uuid": "3ebdd2b3-6c70-4a70-8b7e-4ea84ebf3099",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 90,
+  "height": 90,
+  "platformSettings": {},
+  "subMetas": {
+    "img_dobro_de_moedas": {
+      "ver": "1.0.4",
+      "uuid": "9fbeccf8-ea86-43cf-bf21-0064baf4a3ba",
+      "rawTextureUuid": "3ebdd2b3-6c70-4a70-8b7e-4ea84ebf3099",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 90,
+      "height": 90,
+      "rawWidth": 90,
+      "rawHeight": 90,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
