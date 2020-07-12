@@ -60,7 +60,7 @@ cc.Class({
         console.log('dados da tela: ', data);
 
         this.labelUserCoins.string = data.user.totalCoins;
-        state.player.coins =  data.user.coins;
+        state.player.totalCoins =  data.user.totalCoins;
 
         for(let i = 1; i<=3; i++){
             this[`labelPricePowerUp${i}`].string = data[`pricePowerUp${i}`];
