@@ -48,6 +48,7 @@ cc.Class({
             this.buttonRomoveAds.active = false
         } else {
             removeAds()
+            state.player.removeAds = true
             this.displayModal(message)
         }
     },
