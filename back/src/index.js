@@ -91,36 +91,38 @@ io.on("connection", (socket) => {
 		socket.broadcast.emit('receiveChatMessage', emojiName);
 	})
 
-	socket.on("buyPowerUp", async ({ username, powerUpNumber }) => {
+	socket.on("buyPowerUp", async ({ username, powerUpId }, callback) => {
+		console.log('back recebeu id ', powerUpId)
 		const user = await Usuarios.findOne({ name: username }).exec();
 
 		if (!user) {
-			console.error(`Usuário ${username} não encontrado`);
+			callback({success:false, message:"Username inválido"});
 			return;
 		}
-
-		const powerUp = await findPowerUp(powerUpNumber);
-
+		
+		const powerUp = await findPowerUp(powerUpId);
+		console.log(powerUp)
 		if (!powerUp) {
-			console.error(`Número de Power Up ${powerUpNumber} inválido`);
+			callback({success:false, message:"PowerUp inválido"});
 			return;
 		}
 
-		if (powerUp.valor > user.coins) {
-			console.log("message", "Usuário não possui moedas suficientes");
+		if (powerUp.valor > user.totalCoins) {
+			callback({success: false, message: "Moedas insuficientes"});
 			return;
 		}
 
-		const powerUpCount = user[`powerup${powerUpNumber}`]
-		console.log(user)
+		const powerUpCount = user[`powerup${powerUpId}`]
+
 		await Usuarios.updateOne(
 			{ name: username },
 			{
-				coins: user.totalCoins - powerUp.valor,
-				[`powerup${powerUpNumber}`]: powerUpCount + 1,
+				totalCoins: user.totalCoins - powerUp.valor,
+				[`powerup${powerUpId}`]: powerUpCount + 1,
 			}
 		)
-
+		console.log('comprou powerup')
+		callback({success:true, message:"Sucesso"})
 	})
 
 	socket.on("joinLobby", (user, resp) => {
@@ -159,6 +161,29 @@ io.on("connection", (socket) => {
 		if (protection) return
 
 		player.coins -= state.game.question.level * 50
+	})
+
+	socket.on("loadShopData", async (username, callback) => {
+		const user = await Usuarios.findOne({ name: username }).exec();
+		const powerUps = await PowerUps.find().exec();
+
+		let data = {
+			user: {
+				totalCoins: user.totalCoins,
+				countPowerUp1: user.powerup1,
+				countPowerUp2: user.powerup2,
+				countPowerUp3: user.powerup3
+			},
+			pricePowerUp1: undefined,
+			pricePowerUp2: undefined,
+			pricePowerUp3: undefined
+		}
+		
+		powerUps.forEach(powerUp => {
+			data[`pricePowerUp${powerUp.id}`] = powerUp.valor;
+		})
+		console.log(data);
+		callback(data);
 	})
 })
 
