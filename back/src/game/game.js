@@ -1,5 +1,5 @@
 import io from "../index.js"
-import { state } from "../index.js"
+import { state, addCoins } from "../index.js"
 import { Perguntas } from '../database/index.js'
 
 const sleep = async (time) => {
@@ -19,6 +19,15 @@ export const setGame = () => {
 const endGame = () => {
   console.log("Ending Game...")
   io.sockets.emit("gameEnd", state.game)
+
+  state.game.players.forEach(p => console.log('player: ', p.name, ' - coins earned: ', p.coins))
+
+  const winner = state.game.players.reduce((previous, current) => {
+    return previous.coins > current.coins ? previous : current
+  })
+
+  addCoins(winner.name, winner.coins)
+
   setGame()
 }
 
@@ -48,11 +57,13 @@ const startRound = async () => {
 
   io.sockets.emit("roundStart", state.game)
 
-  await sleep(5000)
+  await sleep(10000)
 }
 
 export const startGame = async () => {
   console.log("Starting Game...")
+
+  state.game.players.forEach(player => player.coins = 0)
 
   await sleep(2000)
 

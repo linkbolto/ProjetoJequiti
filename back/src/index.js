@@ -64,7 +64,7 @@ io.on("connection", (socket) => {
 				})
 			}
 		} else {
-			func(false, "passwords não coincidem")
+			func(false, "senhas não coincidem")
 		}
 	})
 
@@ -85,25 +85,6 @@ io.on("connection", (socket) => {
 				console.log("Usuário " + name + " não encontrado")
 			}
 		})
-	})
-
-	socket.on("addCoins", ({ name, quantity }) => {
-		console.log("adding coins")
-		if (quantity && quantity > 0) {
-			Usuarios.findOne({ name }, function (err, obj) {
-				if (obj) {
-					Usuarios.updateOne(
-						{ name },
-						{ coins: obj.coins + quantity },
-						() => { }
-					)
-				} else {
-					console.error("Usuário " + name + " não encontrado")
-				}
-			})
-		} else {
-			console.error("A quantidade de moedas é inválida")
-		}
 	})
 
 	socket.on("sendChatMessage", (emojiName) => {
@@ -173,11 +154,8 @@ io.on("connection", (socket) => {
 
 		resp(correctAnswer)
 
-		if (isCorrect) {
+		if (isCorrect)
 			player.coins += 500
-		} else {
-			player.coins -= 2000
-		}
 	})
 
 	socket.on("loadShopData", async (username, callback) => {
@@ -203,6 +181,25 @@ io.on("connection", (socket) => {
 		callback(data);
 	})
 })
+
+export const addCoins = (name, quantity) => {
+	console.log("adding coins")
+	if (quantity && quantity > 0) {
+		Usuarios.findOne({ name }, function (err, obj) {
+			if (obj) {
+				Usuarios.updateOne(
+					{ name },
+					{ totalCoins: obj.totalCoins + quantity },
+					() => { }
+				)
+			} else {
+				console.error("Usuário " + name + " não encontrado")
+			}
+		})
+	} else {
+		console.error("A quantidade de moedas é inválida")
+	}
+}
 
 
 export default io
