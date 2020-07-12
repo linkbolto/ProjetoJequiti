@@ -37,12 +37,12 @@ io.on("connection", (socket) => {
 			//Não deixa se cadastrar com o campo de senha vazio
 			if (signupData.passwordSignup === "")
 				func(false, "Forneça uma senha válida")
-			else{
+			else {
 				Usuarios.findOne({ name: signupData.userSignup }, function (err, obj) {
 					//emite mensagem se o usuário já existe
 					if (obj) {
 						if (obj.name === "")
-							func(false, "Forneça um nome de usuário")	
+							func(false, "Forneça um nome de usuário")
 						else
 							func(false, "Nome de usuário já cadastrado")
 					}
@@ -73,16 +73,16 @@ io.on("connection", (socket) => {
 		const name = socket.playerName
 
 		const player = state.game.players.find(p => p.name === name)
-		if(player.answered) return
+		if (player.answered) return
 
 		const user = await Usuarios.findOne({ name }).exec()
-		if(!user) return
+		if (!user) return
 
 		const powerup = user[`powerup${id}`]
 
-		if(!powerup) return resp(false)
+		if (!powerup) return resp(false)
 
-		await Usuarios.updateOne({name}, {[`powerup${id}`]: powerup - 1}, () => {})
+		await Usuarios.updateOne({ name }, { [`powerup${id}`]: powerup - 1 }, () => { })
 
 		handlePowerUp(id, user.name)
 	})
@@ -129,7 +129,7 @@ io.on("connection", (socket) => {
 
 		if (state.game.players.length >= 2)
 			return resp(false)
-		else
+		else if (!state.game.players.find(p => p.name === user.name))
 			state.game.players.push(user)
 
 		resp(true)
@@ -182,11 +182,11 @@ export const addCoins = (name, quantity) => {
 }
 
 const handlePowerUp = (powerId, name) => {
-	if(powerId === 3) {
-		state.game.question.level *= 3
+	if (powerId === 3) {
+		state.game.question.level *= 2
 		io.sockets.emit("changeQuestionCoins", state.game.question.level)
-	} 
-	else if(powerId === 1) {
+	}
+	else if (powerId === 1) {
 		const player = state.game.players.find(p => p.name === name)
 		player.protection = true
 	}

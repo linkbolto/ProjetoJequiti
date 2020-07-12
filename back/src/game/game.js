@@ -21,11 +21,14 @@ const endGame = () => {
 
   state.game.players.forEach(p => console.log('player: ', p.name, ' - coins earned: ', p.coins))
 
-  const winner = state.game.players.reduce((previous, current) => {
-    return previous.coins > current.coins ? previous : current
-  })
+  const player1 = state.game.players[0]
+  const player2 = state.game.players[1]
 
-  addCoins(winner.name, winner.coins)
+  if (player1.coins >= player2.coins)
+    addCoins(player1.name, player1.coins)
+
+  if (player2.coins >= player1.coins)
+    addCoins(player2.name, player2.coins)
 
   io.sockets.emit("gameEnd", state.game)
 
@@ -50,7 +53,7 @@ const endRound = async () => {
 
 const startRound = async () => {
   console.log("Setting question...")
-  
+
   state.game.round += 1
   await setQuestion()
 
