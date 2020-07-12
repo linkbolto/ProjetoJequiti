@@ -5,8 +5,8 @@ cc.Class({
 
   properties: {},
 
-  giveUp () {
-    exitLobby()
+  giveUp() {
+    exitLobby();
     cc.director.loadScene("HomeScreen");
-  }
+  },
 });

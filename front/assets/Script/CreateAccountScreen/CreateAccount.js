@@ -15,7 +15,7 @@ cc.Class({
     },
 
     start() {
-        connect()        
+        //connect()        
     },
 
     onLoad: function () {

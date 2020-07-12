@@ -10,7 +10,7 @@ cc.Class({
   },
 
   start () {
-    connect()
+    //connect()
   },
 
   onClick() {

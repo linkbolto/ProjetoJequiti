@@ -1,3 +1,4 @@
+import { connect } from "../Client/SocketClient";
 
 cc.Class({
     extends: cc.Component,
@@ -8,6 +9,8 @@ cc.Class({
     },
 
     onLoad: function () {
+        connect();
+
         this.buttonCreateAccount.node.on('click', ()=>{
             cc.director.loadScene("CreateAccount");
         }, this);

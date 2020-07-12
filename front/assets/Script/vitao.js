@@ -10,12 +10,13 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        cc.game.addPersistRootNode(this.persistNode);
+        //cc.game.addPersistRootNode(this.persistNode);
         this.persistNode.opacity = 0
+        this.persistNode.active = true
     },
 
     update (dt) {
-       const pisca = Math.floor(Math.random() * 400) 
+       const pisca = Math.floor(Math.random() * 1000) 
 
        if (pisca == 10) this.piscar()
     },
