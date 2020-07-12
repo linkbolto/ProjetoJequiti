@@ -77,6 +77,17 @@ export const joinLobby = () => {
   socket.emit("joinLobby", state.player, joinLobbyResponse)
 }
 
+// LOJA
+export const loadShopData = (callback) => {
+  socket.emit("loadShopData", state.player.name, callback);
+}
+
+export const buyPowerUp = (params, callback) => {
+  socket.emit("buyPowerUp", params , callback);
+  console.log('emitiu pro back')
+}
+
+
 //RESPOSTAS
 const joinLobbyResponse = (resp) => {
   if (resp) cc.director.loadScene("LookingForEnemy");
@@ -85,3 +96,5 @@ const joinLobbyResponse = (resp) => {
 const loginResponse = resp => {
   if (resp) state.player = resp
 }
+
+

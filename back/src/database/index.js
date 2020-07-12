@@ -33,10 +33,12 @@ export const Perguntas = mongoose.model('Pergunta', {
 export const Usuarios = mongoose.model('usuario', {
     name: String,
     password: String,
-    coins: Number,
+    totalCoins: Number,
     powerup1: Number,
     powerup2: Number,
-    powerup3: Number
+    powerup3: Number,
+    coins: Number,
+    answered: Boolean
 }, 'Users')
 
 export const PowerUps = mongoose.model('PowerUp', {
