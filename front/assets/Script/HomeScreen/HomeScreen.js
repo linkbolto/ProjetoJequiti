@@ -6,7 +6,6 @@ cc.Class({
   },
 
   start() {
-    this.populateHomeScreen();
   },
 
   btnShopOnClick() {

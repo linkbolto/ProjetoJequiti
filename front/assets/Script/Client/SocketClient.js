@@ -87,7 +87,6 @@ export const loadShopData = (callback) => {
 
 export const buyPowerUp = (params, callback) => {
   socket.emit("buyPowerUp", params , callback);
-  console.log('emitiu pro back')
 }
 
 

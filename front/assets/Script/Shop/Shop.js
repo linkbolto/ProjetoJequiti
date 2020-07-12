@@ -57,8 +57,6 @@ cc.Class({
     },
 
     populateShop(data) {
-        console.log('dados da tela: ', data);
-
         this.labelUserCoins.string = data.user.totalCoins;
         state.player.totalCoins =  data.user.totalCoins;
 
