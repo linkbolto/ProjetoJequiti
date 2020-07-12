@@ -67,6 +67,7 @@ cc.Class({
   },
 
   processAnswer(chosen, correct) {
+    setTimeout(() => {
     this.Answers[chosen - 1].getComponentInChildren(
       cc.Sprite
     ).spriteFrame = this.wrongSprite
@@ -74,6 +75,7 @@ cc.Class({
     this.Answers[correct - 1].getComponentInChildren(
       cc.Sprite
     ).spriteFrame = this.correctSprite;
+    }, 1000)
   },
 
   changeQuestionCoins(value) {
