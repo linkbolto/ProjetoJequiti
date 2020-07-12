@@ -33,6 +33,7 @@ cc.Class({
   },
 
   powerUp1() {
+    usePowerUp(1, () => {})
     const correct = state.question.respostacerta - 1;
     let chosen = correct;
 
@@ -50,12 +51,9 @@ cc.Class({
 
   powerUp2() {
     usePowerUp(2, () => {})
-
-    if(state.player.powerup2) state.player.powerUp2--
   },
 
   powerUp3() {
     usePowerUp(3, () => {})
-    if(state.player.powerup3) state.player.powerUp3--
   }
 });
