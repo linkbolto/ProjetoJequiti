@@ -5,6 +5,7 @@ cc.Class({
 
   properties: {
     Question: cc.Label,
+    QuestionCoins: cc.Label,
     Answers: [cc.Node],
     correctSprite: cc.SpriteFrame,
     chooseSprite: cc.SpriteFrame,
@@ -18,6 +19,8 @@ cc.Class({
     this.labels = this.Answers.map((a) => {
       return a.getComponentInChildren(cc.Label);
     });
+
+    state.changeQuestionCoins = this.changeQuestionCoins.bind(this)
   },
 
   start() {
@@ -25,7 +28,7 @@ cc.Class({
     const question = state.question;
 
     this.Question.string = question.pergunta;
-
+    this.QuestionCoins.string = question.level.toString();
     this.labels[0].string = question.resposta1;
     this.labels[1].string = question.resposta2;
     this.labels[2].string = question.resposta3;
@@ -72,4 +75,8 @@ cc.Class({
       cc.Sprite
     ).spriteFrame = this.correctSprite;
   },
+
+  changeQuestionCoins(value) {
+    this.QuestionCoins.string = value.toString()
+  }
 });
