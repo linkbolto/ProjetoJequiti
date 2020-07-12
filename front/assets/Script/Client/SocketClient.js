@@ -25,8 +25,10 @@ export const connect = () => {
   socket.on("roundStart", gameState => {
     state.question = gameState.question
     state.players = gameState.players
+    state.player = gameState.players.find(p => p.name === state.player.name)
 
-    console.log(state.player, state.players)
+    console.log("PLAYERS:", state.player, gameState)
+
     cc.director.loadScene("Game")
   })
 
@@ -36,6 +38,8 @@ export const connect = () => {
 
     const myPlayer = players.find(p => p.name === player.name)
     const otherPlayer = players.find(p => p.name !== player.name)
+
+    state.player = myPlayer
 
     if (myPlayer.coins >= otherPlayer.coins)
       cc.director.loadScene('Ganhou')

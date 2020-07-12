@@ -1,6 +1,6 @@
 import io from "../index.js"
 import { state, addCoins } from "../index.js"
-import { Perguntas } from '../database/index.js'
+import { Perguntas, Usuarios } from '../database/index.js'
 
 const sleep = async (time) => {
   await new Promise((r) => setTimeout(r, time))
@@ -18,7 +18,6 @@ export const setGame = () => {
 
 const endGame = () => {
   console.log("Ending Game...")
-  io.sockets.emit("gameEnd", state.game)
 
   state.game.players.forEach(p => console.log('player: ', p.name, ' - coins earned: ', p.coins))
 
@@ -27,6 +26,8 @@ const endGame = () => {
   })
 
   addCoins(winner.name, winner.coins)
+
+  io.sockets.emit("gameEnd", state.game)
 
   setGame()
 }
@@ -55,6 +56,8 @@ const startRound = async () => {
 
   console.log("Starting Round:", state.game.round)
 
+  await updatePlayers()
+
   io.sockets.emit("roundStart", state.game)
 
   await sleep(10000)
@@ -73,4 +76,21 @@ export const startGame = async () => {
   }
 
   endGame()
+}
+
+const updatePlayers = async () => {
+  console.log("PlayerState:", state.game.players)
+  const name0 = state.game.players[0].name
+  const coins0 = state.game.players[0].coins
+
+  console.log(state.game.players)
+
+  state.game.players[0] = await Usuarios.findOne({ name: name0 }).exec()
+  state.game.players[0].coins = coins0
+
+  const name1 = state.game.players[1].name
+  const coins1 = state.game.players[1].coins
+
+  state.game.players[1] = await Usuarios.findOne({ name: name1 }).exec()
+  state.game.players[1].coins = coins1
 }

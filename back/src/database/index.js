@@ -36,7 +36,9 @@ export const Usuarios = mongoose.model('usuario', {
     totalCoins: Number,
     powerup1: Number,
     powerup2: Number,
-    powerup3: Number
+    powerup3: Number,
+    coins: Number,
+    answered: Boolean
 }, 'Users')
 
 export const PowerUps = mongoose.model('PowerUp', {
