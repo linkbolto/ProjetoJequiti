@@ -37,12 +37,12 @@ io.on("connection", (socket) => {
 			//Não deixa se cadastrar com o campo de senha vazio
 			if (signupData.passwordSignup === "")
 				func(false, "Forneça uma senha válida")
-			else{
+			else {
 				Usuarios.findOne({ name: signupData.userSignup }, function (err, obj) {
 					//emite mensagem se o usuário já existe
 					if (obj) {
 						if (obj.name === "")
-							func(false, "Forneça um nome de usuário")	
+							func(false, "Forneça um nome de usuário")
 						else
 							func(false, "Nome de usuário já cadastrado")
 					}
@@ -69,22 +69,22 @@ io.on("connection", (socket) => {
 	})
 
 	// função para consumir um power up de acordo com o name do usuário e o número do power up
-	socket.on("usePowerup", ({ name, numero }) => {
-		console.log("Received powerup event")
-		Usuarios.findOne({ name }, function (err, obj) {
-			console.log(obj)
-			if (obj && obj[`powerup${numero}`]) {
-				const count = obj[`powerup${numero}`]
-				console.log(count)
-				Usuarios.updateOne(
-					{ name },
-					{ [`powerup${numero}`]: count - 1 },
-					() => { }
-				)
-			} else {
-				console.log("Usuário " + name + " não encontrado")
-			}
-		})
+	socket.on("usePowerUp", async (id) => {
+		const name = socket.playerName
+
+		const player = state.game.players.find(p => p.name === name)
+		if (player.answered) return
+
+		const user = await Usuarios.findOne({ name }).exec()
+		if (!user) return
+
+		const powerup = user[`powerup${id}`]
+
+		if (!powerup) return resp(false)
+
+		await Usuarios.updateOne({ name }, { [`powerup${id}`]: powerup - 1 }, () => { })
+
+		handlePowerUp(id, user.name)
 	})
 
 	socket.on("sendChatMessage", (emojiName) => {
@@ -129,7 +129,7 @@ io.on("connection", (socket) => {
 
 		if (state.game.players.length >= 2)
 			return resp(false)
-		else
+		else if (!state.game.players.find(p => p.name === user.name))
 			state.game.players.push(user)
 
 		resp(true)
@@ -144,16 +144,21 @@ io.on("connection", (socket) => {
 		)
 
 		if (player.answered) return
-
 		player.answered = true
 
 		const correctAnswer = state.game.question.respostacerta
 		const isCorrect = correctAnswer === answer
 
+		const protection = player.protection
+		player.protection = false
+
 		resp(correctAnswer)
 
-		if (isCorrect)
-			player.coins += 500
+		if (isCorrect) return player.coins += state.game.question.level * 100
+
+		if (protection) return
+
+		player.coins -= state.game.question.level * 50
 	})
 })
 
@@ -176,5 +181,15 @@ export const addCoins = (name, quantity) => {
 	}
 }
 
+const handlePowerUp = (powerId, name) => {
+	if (powerId === 3) {
+		state.game.question.level *= 2
+		io.sockets.emit("changeQuestionCoins", state.game.question.level)
+	}
+	else if (powerId === 1) {
+		const player = state.game.players.find(p => p.name === name)
+		player.protection = true
+	}
+}
 
 export default io

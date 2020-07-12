@@ -6,7 +6,8 @@ export const state = {
   player: {},
   question: {},
   players: [],
-  handleEmojiFunction: () => {}
+  handleEmojiFunction: () => {},
+  changeQuestionCoins: () => {}
 }
 
 export const connect = () => {
@@ -24,8 +25,11 @@ export const connect = () => {
   socket.on("roundStart", gameState => {
     state.question = gameState.question
     state.players = gameState.players
+    state.player = gameState.players.find(p => p.name === state.player.name)
+    state.player.answered = false
 
-    console.log(state.player, state.players)
+    console.log("PLAYERS:", state.player, gameState)
+
     cc.director.loadScene("Game")
   })
 
@@ -36,27 +40,26 @@ export const connect = () => {
     const myPlayer = players.find(p => p.name === player.name)
     const otherPlayer = players.find(p => p.name !== player.name)
 
+    state.player = myPlayer
+
     if (myPlayer.coins >= otherPlayer.coins)
       cc.director.loadScene('Ganhou')
     else cc.director.loadScene('Perdeu')
   })
 
-  
-  //socket.on("receiveChatMessage", emojiName => {
-  //  state.handleEmojiFunction(emojiName);
-  //})
-
   socket.on("receiveChatMessage", emojiName => {
     state.handleEmojiFunction(emojiName);
+  })
+
+  socket.on('changeQuestionCoins', value => {
+    state.changeQuestionCoins(value)
   })
 }
 
 //EVENTOS
 export const chooseResponse = (param, func) => {
+  state.player.answered = true
   socket.emit("chooseResponse", param, correctAnswer => {
-    if (param === correctAnswer) console.log("RESPOSTA CERTA")
-    else console.log("RESPOSTA ERRADA")
-
     func(param, correctAnswer)
   })
 }
@@ -75,6 +78,10 @@ export const login = (params, func) => {
 
 export const joinLobby = () => {
   socket.emit("joinLobby", state.player, joinLobbyResponse)
+}
+
+export const usePowerUp = id => {
+  socket.emit("usePowerUp", id)
 }
 
 //RESPOSTAS
