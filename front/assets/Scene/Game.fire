@@ -204,7 +204,7 @@
       "array": [
         0,
         0,
-        518.7386491269654,
+        269.61784186938695,
         0,
         0,
         0,
@@ -4464,7 +4464,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "9fbeccf8-ea86-43cf-bf21-0064baf4a3ba"
+      "__uuid__": "d3ecae4c-e8a1-4531-882f-2acae49635a3"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -4558,7 +4558,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "7217a94c-b13b-49a0-b1a4-7ec1aa9a8d94"
+      "__uuid__": "dc6032bf-aaf2-428d-ac4c-9250c05c420f"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -4652,7 +4652,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "2e325dff-4dae-4a9f-878d-716f8ecdeea8"
+      "__uuid__": "36d427a1-91a8-42e1-824b-ad2783120926"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -8444,7 +8444,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "ico_IndQtd<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 169
@@ -8551,7 +8551,7 @@
   },
   {
     "__type__": "cc.Label",
-    "_name": "",
+    "_name": "lbl_Qtd<Label>",
     "_objFlags": 0,
     "node": {
       "__id__": 172
@@ -8660,7 +8660,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "img_PularQuestao<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 175
@@ -8674,7 +8674,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "212f6306-0d9c-45e2-af81-f3aee1641326"
+      "__uuid__": "f23b6a07-bf26-4a02-b3a4-662d4dccaec5"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -8703,7 +8703,7 @@
   },
   {
     "__type__": "cc.Sprite",
-    "_name": "",
+    "_name": "Background<Sprite>",
     "_objFlags": 0,
     "node": {
       "__id__": 168
@@ -8837,7 +8837,7 @@
   },
   {
     "__type__": "cc.Label",
-    "_name": "",
+    "_name": "lbl_NomePUp<Label>",
     "_objFlags": 0,
     "node": {
       "__id__": 181
@@ -10522,9 +10522,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "25feef40-f15f-47a4-91cf-3f851646270b"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
