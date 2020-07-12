@@ -26,6 +26,7 @@ export const connect = () => {
     state.question = gameState.question
     state.players = gameState.players
     state.player = gameState.players.find(p => p.name === state.player.name)
+    state.player.answered = false
 
     console.log("PLAYERS:", state.player, gameState)
 
@@ -57,6 +58,7 @@ export const connect = () => {
 
 //EVENTOS
 export const chooseResponse = (param, func) => {
+  state.player.answered = true
   socket.emit("chooseResponse", param, correctAnswer => {
     func(param, correctAnswer)
   })

@@ -8,17 +8,25 @@ cc.Class({
     PowerUpMenu: cc.Node,
     PowerLabel1: cc.Label,  
     PowerLabel2: cc.Label,  
-    PowerLabel3: cc.Label,  
+    PowerLabel3: cc.Label,
+    SidePower1: cc.Node,
+    SidePower2: cc.Node,
+    SidePower3: cc.Node,
+    PowerUpButton: cc.Node,
   },
 
   start() {
-    console.log("Power Up", state.player)
     this.PowerLabel1.string = state.player.powerup1
     this.PowerLabel2.string = state.player.powerup2
     this.PowerLabel3.string = state.player.powerup3
+    this.SidePower1.active = false
+    this.SidePower2.active = false
+    this.SidePower3.active = false
   },
 
   openPowerUpMenu () {
+    if (state.player.answered) return
+
     cc.tween(this.PowerUpMenu)
     .to(0, {position: cc.v2(208, -110)})
     .to(0.25, { position: cc.v2(208, 0)})
@@ -32,15 +40,27 @@ cc.Class({
     .start()
   },
 
-  powerUp1() {
-    usePowerUp(1, () => {})
+  disableButton () {
+    this.PowerUpButton.active = false
+  },
+
+  powerUp2() {
+    if (!state.player.powerup2) return
+
+    this.SidePower2.active = true
+    this.disableButton()
+    this.closePowerUpMenu()
+
+    usePowerUp(2, () => {})
     const correct = state.question.respostacerta - 1;
+
     let chosen = correct;
-
     while (chosen === correct) chosen = Math.floor(Math.random() * 4);
-
     this.eraseAnswer(chosen)
-    if(state.player.powerup1) state.player.powerUp1--
+
+    let chosen2 = correct
+    while (chosen2 === correct || chosen2 === chosen ) chosen2 = Math.floor(Math.random() * 4);
+    this.eraseAnswer(chosen2)
   },
 
   eraseAnswer(number) {
@@ -49,11 +69,23 @@ cc.Class({
     cc.tween(answer).to(1, { opacity: 0 }).start();
   },
 
-  powerUp2() {
-    usePowerUp(2, () => {})
+  powerUp3() {
+    if (!state.player.powerup3) return
+
+    this.SidePower3.active = true
+    this.disableButton()
+    this.closePowerUpMenu()
+
+    usePowerUp(3, () => {})
   },
 
-  powerUp3() {
-    usePowerUp(3, () => {})
+  powerUp1() {
+    if (!state.player.powerup1) return
+
+    this.SidePower1.active = true
+    this.disableButton()
+    this.closePowerUpMenu()
+
+    usePowerUp(1, () => {})
   }
 });

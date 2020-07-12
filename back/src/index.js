@@ -71,8 +71,11 @@ io.on("connection", (socket) => {
 	// função para consumir um power up de acordo com o name do usuário e o número do power up
 	socket.on("usePowerUp", async (id) => {
 		const name = socket.playerName
-		const user = await Usuarios.findOne({ name }).exec()
 
+		const player = state.game.players.find(p => p.name === name)
+		if(this.player.answered) return
+
+		const user = await Usuarios.findOne({ name }).exec()
 		if(!user) return
 
 		const powerup = user[`powerup${id}`]
@@ -179,11 +182,11 @@ export const addCoins = (name, quantity) => {
 }
 
 const handlePowerUp = (powerId, name) => {
-	if(powerId === 2) {
-		state.game.question.level *= 2
+	if(powerId === 3) {
+		state.game.question.level *= 3
 		io.sockets.emit("changeQuestionCoins", state.game.question.level)
 	} 
-	else if(powerId === 3) {
+	else if(powerId === 1) {
 		const player = state.game.players.find(p => p.name === name)
 		player.protection = true
 	}
