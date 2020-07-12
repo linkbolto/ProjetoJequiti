@@ -1,6 +1,6 @@
 {
   "ver": "2.3.4",
-  "uuid": "6e4f01b7-1390-442c-b5ae-ed722100251c",
+  "uuid": "33d706c0-ecb5-4783-889e-9f503fae4d9f",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "img_escudo": {
       "ver": "1.0.4",
-      "uuid": "212f6306-0d9c-45e2-af81-f3aee1641326",
-      "rawTextureUuid": "6e4f01b7-1390-442c-b5ae-ed722100251c",
+      "uuid": "f23b6a07-bf26-4a02-b3a4-662d4dccaec5",
+      "rawTextureUuid": "33d706c0-ecb5-4783-889e-9f503fae4d9f",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

@@ -1,6 +1,6 @@
 {
   "ver": "2.3.4",
-  "uuid": "3ebdd2b3-6c70-4a70-8b7e-4ea84ebf3099",
+  "uuid": "8bb25088-bcdf-483a-b573-a597e2ad9c3d",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "img_dobro_de_moedas": {
       "ver": "1.0.4",
-      "uuid": "9fbeccf8-ea86-43cf-bf21-0064baf4a3ba",
-      "rawTextureUuid": "3ebdd2b3-6c70-4a70-8b7e-4ea84ebf3099",
+      "uuid": "d3ecae4c-e8a1-4531-882f-2acae49635a3",
+      "rawTextureUuid": "8bb25088-bcdf-483a-b573-a597e2ad9c3d",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

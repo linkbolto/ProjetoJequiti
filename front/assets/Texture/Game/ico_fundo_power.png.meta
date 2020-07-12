@@ -1,6 +1,6 @@
 {
   "ver": "2.3.4",
-  "uuid": "9bceb768-fe3c-4120-b866-1ef966cf2318",
+  "uuid": "7f38612d-e341-42ae-81fc-f8b3d6217119",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "ico_fundo_power": {
       "ver": "1.0.4",
-      "uuid": "25feef40-f15f-47a4-91cf-3f851646270b",
-      "rawTextureUuid": "9bceb768-fe3c-4120-b866-1ef966cf2318",
+      "uuid": "718a2e72-c258-4c5a-9f37-5f348af5a37f",
+      "rawTextureUuid": "7f38612d-e341-42ae-81fc-f8b3d6217119",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
