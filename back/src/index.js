@@ -73,7 +73,7 @@ io.on("connection", (socket) => {
 		const name = socket.playerName
 
 		const player = state.game.players.find(p => p.name === name)
-		if(this.player.answered) return
+		if(player.answered) return
 
 		const user = await Usuarios.findOne({ name }).exec()
 		if(!user) return
