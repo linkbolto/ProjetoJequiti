@@ -18,9 +18,8 @@ cc.Class({
             cc.director.loadScene("HomeScreen")
         }
     },
-    start () {
 
-    },
-
-    // update (dt) {},
+    ostentar () {
+      window.open("https://twitter.com", "_blank");
+    }
 });

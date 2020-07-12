@@ -125,6 +125,12 @@ io.on("connection", (socket) => {
 		callback({success:true, message:"Sucesso"})
 	})
 
+	socket.on("exitLobby", () => {
+    state.game.players = state.game.players.filter(
+      (p) => p.name !== socket.playerName
+		)
+  })
+
 	socket.on("joinLobby", (user, resp) => {
 		if (!state.game || Object.keys(state.game).length === 0)
 			setGame()

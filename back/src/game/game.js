@@ -63,7 +63,7 @@ const startRound = async () => {
 
   io.sockets.emit("roundStart", state.game)
 
-  await sleep(10000)
+  await sleep(20000)
 }
 
 export const startGame = async () => {

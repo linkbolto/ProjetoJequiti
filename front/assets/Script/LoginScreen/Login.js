@@ -22,7 +22,7 @@ cc.Class({
     },
 
     start () {
-        connect()
+        //connect()
     },
 
     sendLogin () {

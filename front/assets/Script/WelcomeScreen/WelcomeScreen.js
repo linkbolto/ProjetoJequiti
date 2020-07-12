@@ -1,3 +1,4 @@
+import { connect } from "../Client/SocketClient";
 
 cc.Class({
     extends: cc.Component,
@@ -5,10 +6,11 @@ cc.Class({
     properties: {    
         buttonCreateAccount: cc.Button,
         buttonLogin: cc.Button,
-        buttonLoginGuest: cc.Button
     },
 
     onLoad: function () {
+        connect();
+
         this.buttonCreateAccount.node.on('click', ()=>{
             cc.director.loadScene("CreateAccount");
         }, this);
@@ -16,10 +18,5 @@ cc.Class({
         this.buttonLogin.node.on('click', ()=>{
             cc.director.loadScene("Login");
         }, this);
-           
-        this.buttonLoginGuest.node.on('click', ()=>{
-            cc.director.loadScene("HomeScreen");
-        }, this);
     },
-    
 });
