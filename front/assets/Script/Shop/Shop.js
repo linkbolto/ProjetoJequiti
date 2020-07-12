@@ -1,16 +1,16 @@
-const { loadShopData, buyPowerUp, state } = require("../Client/SocketClient");
+const { loadShopData, buyPowerUp, removeAds, state } = require("../Client/SocketClient");
 
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        buttonBack : cc.Button,
-        buttonRomoveAds : cc.Button,
-        buttonDailyReward : cc.Button,
-        modal : cc.Node,
-        modalMessage : cc.RichText,
-        modalContinueButton : cc.Button,
+        buttonBack: cc.Button,
+        buttonRomoveAds: cc.Button,
+        buttonDailyReward: cc.Button,
+        modal: cc.Node,
+        modalMessage: cc.RichText,
+        modalContinueButton: cc.Button,
         labelUserCoins: cc.Label,
         labelPricePowerUp1: cc.Label,
         labelPricePowerUp2: cc.Label,
@@ -25,26 +25,32 @@ cc.Class({
     },
 
     purchasePowerUp(event, powerUpId) {
-        buyPowerUp({ username: state.player.name, powerUpId}, this.handlePurchaseResponse.bind(this))
+        buyPowerUp({ username: state.player.name, powerUpId }, this.handlePurchaseResponse.bind(this))
     },
 
-    handlePurchaseResponse({success, message}) {
-        if(success)
+    handlePurchaseResponse({ success, message }) {
+        if (success)
             cc.director.loadScene("Shop");
         else
             this.displayModal(message);
     },
 
-    buttonBack_OnClick(){
+    buttonBack_OnClick() {
         cc.director.loadScene("HomeScreen")
     },
 
-    buttonDailyReward_OnClick(){
-       cc.director.loadScene("AdScreen") 
+    buttonDailyReward_OnClick() {
+        cc.director.loadScene("AdScreen")
     },
 
     buttonRemoveAds_OnClick(event, message) {
-        this.displayModal(message);
+        if (state.player.removeAds) {
+            this.buttonRomoveAds.active = false
+        } else {
+            removeAds()
+            state.player.removeAds = true
+            this.displayModal(message)
+        }
     },
 
     displayModal(message) {
@@ -58,14 +64,14 @@ cc.Class({
 
     populateShop(data) {
         this.labelUserCoins.string = data.user.totalCoins;
-        state.player.totalCoins =  data.user.totalCoins;
+        state.player.totalCoins = data.user.totalCoins;
 
-        for(let i = 1; i<=3; i++){
+        for (let i = 1; i <= 3; i++) {
             this[`labelPricePowerUp${i}`].string = data[`pricePowerUp${i}`];
             this[`labelCountPowerUp${i}`].string = data.user[`countPowerUp${i}`];
-            state.player[`powerup${i}`] =  data.user[`countPowerUp${i}`];
+            state.player[`powerup${i}`] = data.user[`countPowerUp${i}`];
         }
 
- 
+
     }
 });
