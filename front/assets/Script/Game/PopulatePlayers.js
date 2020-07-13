@@ -1,4 +1,5 @@
 import { state } from "../Client/SocketClient";
+import { formatWithDots } from "../common/helpers";
 
 cc.Class({
   extends: cc.Component,
@@ -22,7 +23,7 @@ cc.Class({
 
     this.nameP1.string = player1.name
     this.nameP2.string = player2.name
-    this.pontosP1.string = player1.coins
-    this.pontosP2.string = player2.coins
+    this.pontosP1.string = formatWithDots(player1.coins);
+    this.pontosP2.string = formatWithDots(player2.coins);
   },
 });

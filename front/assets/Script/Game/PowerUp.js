@@ -13,6 +13,7 @@ cc.Class({
     SidePower2: cc.Node,
     SidePower3: cc.Node,
     PowerUpButton: cc.Node,
+    DarkLayer: cc.Node
   },
 
   start() {
@@ -31,6 +32,8 @@ cc.Class({
     .to(0, {position: cc.v2(208, -110)})
     .to(0.25, { position: cc.v2(208, 0)})
     .start()
+
+    cc.tween(this.DarkLayer).to(0.5, { opacity: 115 }).start();
   },
 
   closePowerUpMenu() {
@@ -38,6 +41,8 @@ cc.Class({
     .to(0.25, { position: cc.v2(208,-110) })
     .to(0, {position: cc.v2(208, -1000)})
     .start()
+
+    cc.tween(this.DarkLayer).to(0.8, { opacity: 0 }).start();
   },
 
   disableButton () {
