@@ -151,6 +151,8 @@ io.on("connection", (socket) => {
 	socket.on("joinLobby", (user, resp) => {
 		if(state.game.running) return resp(false)
 
+		if(!user && !user.name) return resp(false)
+
 		if (state.game.players.length >= 2) return resp(false)
 
 		if (!state.game.players.find(p => p && p.name === user.name))
