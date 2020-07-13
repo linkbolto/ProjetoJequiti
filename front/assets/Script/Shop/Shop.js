@@ -1,4 +1,5 @@
 const { loadShopData, buyPowerUp, removeAds, state } = require("../Client/SocketClient");
+const { formatWithDots } = require("../common/helpers");
 
 
 cc.Class({
@@ -63,12 +64,12 @@ cc.Class({
     },
 
     populateShop(data) {
-        this.labelUserCoins.string = data.user.totalCoins;
+        this.labelUserCoins.string = formatWithDots(data.user.totalCoins);
         state.player.totalCoins = data.user.totalCoins;
 
         for (let i = 1; i <= 3; i++) {
-            this[`labelPricePowerUp${i}`].string = data[`pricePowerUp${i}`];
-            this[`labelCountPowerUp${i}`].string = data.user[`countPowerUp${i}`];
+            this[`labelPricePowerUp${i}`].string = formatWithDots(data[`pricePowerUp${i}`]);
+            this[`labelCountPowerUp${i}`].string = formatWithDots(data.user[`countPowerUp${i}`]);
             state.player[`powerup${i}`] = data.user[`countPowerUp${i}`];
         }
 

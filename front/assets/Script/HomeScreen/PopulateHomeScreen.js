@@ -1,4 +1,5 @@
 import { state } from "../Client/SocketClient";
+import { formatWithDots } from "../common/helpers";
 
 cc.Class({
   extends: cc.Component,
@@ -17,10 +18,10 @@ cc.Class({
 
   populateHomeScreen() {
     this.labelPlayerName.string = state.player.name;
-    this.labelPlayerCoins.string = state.player.totalCoins;
-    this.labelPowerUp1.string = state.player.powerup1;
-    this.labelPowerUp2.string = state.player.powerup2;
-    this.labelPowerUp3.string = state.player.powerup3;
+    this.labelPlayerCoins.string = formatWithDots(state.player.totalCoins);
+    this.labelPowerUp1.string = formatWithDots(state.player.powerup1);
+    this.labelPowerUp2.string = formatWithDots(state.player.powerup2);
+    this.labelPowerUp3.string = formatWithDots(state.player.powerup3);
   }
 
 });

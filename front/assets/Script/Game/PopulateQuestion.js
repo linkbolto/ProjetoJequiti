@@ -1,4 +1,5 @@
 import { state, chooseResponse } from "../Client/SocketClient";
+import { formatWithDots } from "../common/helpers";
 
 cc.Class({
   extends: cc.Component,
@@ -79,6 +80,6 @@ cc.Class({
   },
 
   changeQuestionCoins(value) {
-    this.QuestionCoins.string = value.toString()
+    this.QuestionCoins.string = formatWithDots(value);
   }
 });

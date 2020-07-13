@@ -1,16 +1,17 @@
 import { state } from "../Client/SocketClient";
+import { formatWithDots } from "../common/helpers";
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
-
-        
+        labelEarnedCoins: cc.Label        
     },
 
-    // LIFE-CYCLE CALLBACKS:
+    onLoad () {
+        this.labelEarnedCoins.string = formatWithDots(state.player.coins);
+    },
 
-    // onLoad () {},
     clickButtonContinue(){
         if (state.player && !state.player.removeAds) {
             cc.director.loadScene("AdScreen")
