@@ -15,7 +15,10 @@ cc.Class({
 
     },
     click(){
-        if (state.player && Object.keys(state.player).length !== 0) {
+        if (state.shopAd) {
+            state.shopAd = false
+            cc.director.loadScene("Shop")
+        } else if (state.player && Object.keys(state.player).length !== 0) {
             cc.director.loadScene("HomeScreen")
         } else {
             cc.director.loadScene("WelcomeScreen")

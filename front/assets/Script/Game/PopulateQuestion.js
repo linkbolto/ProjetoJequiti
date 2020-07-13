@@ -29,7 +29,7 @@ cc.Class({
     const question = state.question;
 
     this.Question.string = question.pergunta;
-    this.QuestionCoins.string = question.level.toString();
+    this.QuestionCoins.string = question.level * 100;
     this.labels[0].string = question.resposta1;
     this.labels[1].string = question.resposta2;
     this.labels[2].string = question.resposta3;
@@ -80,6 +80,6 @@ cc.Class({
   },
 
   changeQuestionCoins(value) {
-    this.QuestionCoins.string = formatWithDots(value);
+    this.QuestionCoins.string = formatWithDots(value * 100);
   }
 });
