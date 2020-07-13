@@ -187,13 +187,13 @@
     "_active": true,
     "_components": [
       {
+        "__id__": 163
+      },
+      {
+        "__id__": 164
+      },
+      {
         "__id__": 165
-      },
-      {
-        "__id__": 166
-      },
-      {
-        "__id__": 167
       }
     ],
     "_prefab": null,
@@ -283,7 +283,7 @@
       "array": [
         0,
         0,
-        525.6774200971543,
+        518.7492168668788,
         0,
         0,
         0,
@@ -7064,20 +7064,16 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "text_modal_message",
+    "_name": "label_modal_message",
     "_objFlags": 0,
     "_parent": {
       "__id__": 143
     },
-    "_children": [
-      {
-        "__id__": 162
-      }
-    ],
+    "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 164
+        "__id__": 162
       }
     ],
     "_prefab": null,
@@ -7091,8 +7087,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 260,
-      "height": 31.5
+      "width": 275.76,
+      "height": 146.2
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -7103,8 +7099,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        2.756,
-        51.241,
+        2.87,
+        80.104,
         0,
         0,
         0,
@@ -7126,78 +7122,14 @@
     "_is3DNode": false,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "_id": "e0e7mOINNA17vVaOaazZ9D"
-  },
-  {
-    "__type__": "cc.PrivateNode",
-    "_name": "RICHTEXT_CHILD",
-    "_objFlags": 1024,
-    "_parent": {
-      "__id__": 161
-    },
-    "_children": [],
-    "_active": false,
-    "_components": [
-      {
-        "__id__": 163
-      }
-    ],
-    "_prefab": null,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 128,
-      "g": 128,
-      "b": 128,
-      "a": 255
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 107.3,
-      "height": 31.5
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_trs": {
-      "__type__": "TypedArray",
-      "ctor": "Float64Array",
-      "array": [
-        -53.65,
-        -15.75,
-        0,
-        0,
-        0,
-        0,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    "_eulerAngles": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_zIndex": -32768,
-    "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
-    "showInEditor": false,
-    "_id": "06Et177QdCRbXzklS1MD94"
+    "_id": "13pyQ98WpJkLv9WH3L2mpy"
   },
   {
     "__type__": "cc.Label",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 162
+      "__id__": 161
     },
     "_enabled": true,
     "_materials": [
@@ -7205,49 +7137,26 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
-    "_useOriginalSize": true,
-    "_string": "mensagem",
-    "_N$string": "mensagem",
-    "_fontSize": 20,
-    "_lineHeight": 25,
+    "_useOriginalSize": false,
+    "_string": "Dobra a recompensa da questão. Em caso de erro, a penalidade também é dobrada.",
+    "_N$string": "Dobra a recompensa da questão. Em caso de erro, a penalidade também é dobrada.",
+    "_fontSize": 18,
+    "_lineHeight": 20.699999999999996,
     "_enableWrapText": true,
     "_N$file": {
-      "__uuid__": "f39d1131-22f9-4a58-bfd9-d5de40e68e0e"
+      "__uuid__": "eecb8107-a1f8-4624-8299-6db0202a9991"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
     "_underlineHeight": 0,
-    "_N$horizontalAlign": 0,
+    "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 0,
+    "_N$overflow": 2,
     "_N$cacheMode": 0,
-    "_id": "dc1sGXwPJE9rtT5U0CuFw0"
-  },
-  {
-    "__type__": "cc.RichText",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 161
-    },
-    "_enabled": true,
-    "_fontFamily": "Arial",
-    "_isSystemFontUsed": false,
-    "_N$string": "mensagem",
-    "_N$horizontalAlign": 1,
-    "_N$fontSize": 20,
-    "_N$font": {
-      "__uuid__": "f39d1131-22f9-4a58-bfd9-d5de40e68e0e"
-    },
-    "_N$cacheMode": 0,
-    "_N$maxWidth": 260,
-    "_N$lineHeight": 25,
-    "_N$imageAtlas": null,
-    "_N$handleTouchEvent": true,
-    "_id": "faVHN8bhtKCK57TWyw+fva"
+    "_id": "eeRYyNEaNA9ZbkTJnfAOAk"
   },
   {
     "__type__": "cc.Canvas",
@@ -7314,7 +7223,7 @@
       "__id__": 143
     },
     "modalMessage": {
-      "__id__": 164
+      "__id__": 162
     },
     "modalContinueButton": {
       "__id__": 159

@@ -37,5 +37,6 @@
   },
   "migrate-history": [
     "cloud-function"
-  ]
+  ],
+  "start-scene": "2d2f792f-a40c-49bb-a189-ed176a246e49"
 }

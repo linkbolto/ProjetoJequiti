@@ -10,7 +10,7 @@ cc.Class({
         buttonRomoveAds: cc.Button,
         buttonDailyReward: cc.Button,
         modal: cc.Node,
-        modalMessage: cc.RichText,
+        modalMessage: cc.Label,
         modalContinueButton: cc.Button,
         labelUserCoins: cc.Label,
         labelPricePowerUp1: cc.Label,
