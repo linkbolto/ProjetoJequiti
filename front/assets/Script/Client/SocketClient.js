@@ -6,6 +6,7 @@ export const state = {
   player: {},
   question: {},
   players: [],
+  shopAd: false,
   handleEmojiFunction: () => {},
   changeQuestionCoins: () => {}
 }
@@ -42,9 +43,12 @@ export const connect = () => {
 
     state.player = myPlayer
 
-    if (myPlayer.coins >= otherPlayer.coins)
+    if (myPlayer.coins >= otherPlayer.coins) {
+      myPlayer.totalCoins += myPlayer.coins
       cc.director.loadScene('Ganhou')
-    else cc.director.loadScene('Perdeu')
+    } else {
+      cc.director.loadScene('Perdeu')
+    }
   })
 
   socket.on("receiveChatMessage", emojiName => {

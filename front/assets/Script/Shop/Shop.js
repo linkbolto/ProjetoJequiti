@@ -41,6 +41,7 @@ cc.Class({
     },
 
     buttonDailyReward_OnClick() {
+        state.shopAd = true
         cc.director.loadScene("AdScreen")
     },
 
