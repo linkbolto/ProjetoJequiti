@@ -10,6 +10,7 @@ const ROUNDS = 5
 
 export const setGame = () => {
   state.game = {
+    running: false,
     question: {},
     round: 0,
     players: []
@@ -63,12 +64,13 @@ const startRound = async () => {
 
   io.sockets.emit("roundStart", state.game)
 
-  await sleep(20000)
+  await sleep(1500)
 }
 
 export const startGame = async () => {
   console.log("Starting Game...")
 
+  state.game.running = true
   state.game.players.forEach(player => player.coins = 0)
 
   await sleep(2000)
