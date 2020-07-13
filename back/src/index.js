@@ -6,7 +6,12 @@ import findPowerUp from "./database/actions.js"
 const io = socketio(3500)
 
 export const state = {
-	game: {},
+	game: {
+    question: {},
+    round: 0,
+		players: [],
+		running: false
+  },
 }
 
 io.on("connection", (socket) => {
@@ -29,6 +34,14 @@ io.on("connection", (socket) => {
 				console.log("Login erro")
 			}
 		})
+	})
+
+	socket.on("disconnect", () => {
+		if(!state.game.running) {
+			state.game.players = state.game.players.filter(
+        (p) => p.name !== socket.playerName
+      )
+		}
 	})
 
 	socket.on("signup", (signupData, func) => {
@@ -125,19 +138,22 @@ io.on("connection", (socket) => {
 		callback({success:true, message:"Sucesso"})
 	})
 
-	socket.on("exitLobby", () => {
+	socket.on("exitLobby", (func) => {
+		if(state.game.running) return func(false)
+
     state.game.players = state.game.players.filter(
       (p) => p.name !== socket.playerName
 		)
+
+		func(true)
   })
 
 	socket.on("joinLobby", (user, resp) => {
-		if (!state.game || Object.keys(state.game).length === 0)
-			setGame()
+		if(state.game.running) return resp(false)
 
-		if (state.game.players.length >= 2)
-			return resp(false)
-		else if (!state.game.players.find(p => p.name === user.name))
+		if (state.game.players.length >= 2) return resp(false)
+
+		if (!state.game.players.find(p => p && p.name === user.name))
 			state.game.players.push(user)
 
 		resp(true)

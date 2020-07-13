@@ -80,8 +80,8 @@ export const joinLobby = () => {
   socket.emit("joinLobby", state.player, joinLobbyResponse)
 }
 
-export const exitLobby = () => {
-  socket.emit("exitLobby")
+export const exitLobby = func => {
+  socket.emit("exitLobby", func)
 }
 
 // LOJA
